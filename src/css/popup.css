@@ -1,0 +1,14 @@
+@charset "utf-8";
+/************************
+* Author : Go Sunggoon  /  Version : CSS 1.0  /  Date : 2022-10-23
+*************************/
+/* 공통 */
+.popBox{overflow:hidden; background-color:#fff; width:90%; display:none; border-radius:6px;}
+.popBox .popBody{overflow:hidden; padding:20px; max-height:650px; overflow-y:auto;}
+.popBox .txtBox{text-align:center; font-size:16px; font-weight:500; color:#222;}
+.popBox .btnBox{margin-top:30px; text-align:center;}
+.popBox .btnBox .btn{border-radius:6px; width:100px; height:45px; font-size:15px; font-weight:500;}
+.popBox .btnBox .btn.on{background-color:#fe8b2d; color:#fff; margin-right:5px;}
+.popBox .btnBox .btn.off{background-color:#fff; border:1px solid #a9a9ab; color:#666; margin-left:5px;}
+
+/* //END -  */

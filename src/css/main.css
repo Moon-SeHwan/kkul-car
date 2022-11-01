@@ -1,0 +1,162 @@
+@charset "utf-8";
+/************************
+* Author : Goc  /  Version : CSS 1.0  /  Date : 2022-10-24
+*************************/
+#contentSection{overflow:hidden; margin-top:65px; padding:10px;}
+
+/*====================
+* topBanner
+=====================*/
+.topBanner{position:relative; margin-bottom:30px;}
+.topBanner ul li{text-align:center;}
+
+/* bx-pager */
+/* .slick-slider .bx-pager {position:absolute; bottom:0px; width:100%; text-align:center;}
+.slick-slider .bx-pager a {background:#a8a8ab;text-indent: -9999px;display:block;width:8px;height:8px;margin:0; margin-right:3px; outline: 0;border-radius: 5px; transition:all 0.3s ease-out}
+.slick-slider .bx-pager a:hover, .slick-slider .bx-pager a:focus{background: #000;}
+.slick-slider .bx-pager a.active{width:35px;}
+.slick-slider .bx-pager-item{display: inline-block;vertical-align: bottom; font-size: 0;line-height: 0;} */
+/* //topBanner */
+
+
+/*====================
+* requestBox
+=====================*/
+.requestBox{background-color:#fff; border-radius:10px; padding:20px 10px; margin-bottom:30px; overflow:hidden; height:68px; transition:all 0.3s ease-out}
+.requestBox .tit{background:url('src/assets/icon/note.png') no-repeat 0px 5px; background-size:25px; padding-left:30px; font-size:20px; font-weight:500;  height:50px; position:relative;}
+.requestBox .tit .btn{position:absolute; right:0px; top:-2px; background:#f5f5f5 url('src/assets/icon/arrow-down.png') no-repeat 50%; background-size:50%; width:35px; height:35px; border-radius:50%;}
+.requestBox.on{height:initial;}
+.requestBox.on .btn.arw-dw{background:#f5f5f5 url('src/assets/icon/arrow-top.png') no-repeat 50%; background-size:50%;}
+
+/* 공통 */
+.requestBox div .stepBox{background-color:#f4ede9; text-align:left; font-size:15px; padding:10px; border-radius:6px; margin-bottom:30px;}
+.requestBox div .stepBox .badge{border-radius:15px; background-color:#fff; color:#222; margin-right:5px;}
+.requestBox div .inTit{font-size:14px; color:#222; font-weight:500; margin-bottom:5px;}
+.requestBox div .btnBox{margin-top:30px; text-align:center;}
+.requestBox div .btnBox .btn{border-radius:6px; min-width:100px; height:45px; font-size:15px; font-weight:500;}
+.requestBox div .btnBox .btn.on{background-color:#fe8b2d; color:#fff; margin-right:3px;}
+.requestBox div .btnBox .btn.off{background-color:#fff; border:1px solid #a9a9ab; color:#666; margin-left:3px;}
+.slick-slide img { display: inline !important; }
+
+/* 로그인 */
+.requestBox .step1 .txt{font-size:13px; text-align:center; width:100%;}
+.requestBox .step1 .btnBox{margin-top:40px; overflow:hidden;}
+.requestBox .step1 .btnBox a{display:inline-block; text-align:center; height:45px; line-height:45px;  border-radius:6px; font-size:14px; font-weight:500;}
+.requestBox .step1 .btnBox a img{width:21px; vertical-align:middle; margin-right:10px;}
+.requestBox .step1 .btnBox div{display:inline-block; text-align:center; height:45px; line-height:45px;  border-radius:6px; font-size:14px; font-weight:500;}
+.requestBox .step1 .btnBox div img{width:21px; vertical-align:middle; margin-right:10px;}
+.requestBox .step1 .btnBox div.kakao{background:#fde500; color:#391b1b; width:calc(50% - 5px);}
+.requestBox .step1 .btnBox div.naver{background:#04c75b; color:#fff; width:calc(50% - 5px);}
+
+/* 사진 등록 */
+.requestBox .step2 .photoBox{background-color:#f5f5f5; border-radius:6px; height:200px; padding:10px;}
+.requestBox .step2 .photoBox .inBox{border-radius:6px; border:2px dashed #fff; height:100%; background:url('src/assets/icon/camera.png') no-repeat 50%; background-size:40px; text-align:center; font-size:15px; line-height:240px; color:#666;}
+.requestBox .step2 .picBox{margin-top:30px;}
+.requestBox .step2 .picBox ul{display:flex; flex-wrap:nowrap;  justify-content:center;}
+.requestBox .step2 .picBox li{width:25%; padding-right:5px; text-align:center;}
+.requestBox .step2 .picBox li:last-child{padding-right:0px;}
+.requestBox .step2 .picBox li .imgBox img{width:100%; max-width:100px; height:82px;  object-fit: cover; border-radius:6px;}
+.requestBox .step2 .picBox li .btn.plus{width:100%; max-width:100px; height:82px; border:1px dashed #dadada; background:url('src/assets/icon/plus.png') no-repeat 50%; background-size:25px; border-radius:6px;}
+
+/* 화물명 입력 */
+.requestBox .step3 .inBox{}
+.requestBox .step3 .raBox{margin-top:15px; display:flex; justify-content:center; gap:0px 5px;}
+.requestBox .step3 .raBox input[type='radio']{position:absolute; clip: rect(0,0,0,0); pointer-events:none;}
+.requestBox .step3 .raBox label{display:inline-block; width:80px; height:40px; border-radius:6px; border:1px dashed #dadada; color:#666; text-align:center;}
+.requestBox .step3 .raBox input[type='radio']:checked + label{border:1px dashed #fe8b2d; color:#fe8b2d;}
+
+/* 화물정보 */
+.requestBox .step4 .imgBox{border-radius:6px; background:#f5f5f5 url("src/assets/icon/box.png") no-repeat 50%; background-size:120px; height:145px; }
+.requestBox .step4 .inBox{margin-top:15px;}
+.requestBox .step4 .inBox ul{display:flex; flex-wrap:nowrap; }
+.requestBox .step4 .inBox li{width:33.33%; padding-right:15px; background:url('src/assets/icon/x.png') no-repeat calc(100% - 3px) 50%; background-size:10px;}
+.requestBox .step4 .inBox li:last-child{color:#666; font-weight:400; font-size:14px; background:initial; padding-right:5px;}
+.requestBox .step4 .inBox li:last-child input{width:calc(100% - 35px); margin-right:5px;}
+.requestBox .step4 .inBox .weight{margin-top:15px; color:#666; font-size:14px;}
+.requestBox .step4 .inBox .weight input{width:calc(100% - 40px); margin-right:5px;}
+.requestBox .step4 .txtBox{text-align:center; color:#666; font-size:13px; margin-top:25px;}
+
+/* 출발/도착 시간 */
+.requestBox .step5 .inBox{}
+.requestBox .step5 .inBox .amBox{padding-bottom:15px; border-bottom:1px solid #dcdcdc; margin-bottom:15px;}
+.requestBox .step5 .inBox .pmBox{padding-bottom:15px;}
+.requestBox .step5 .inBox .dateBox{margin-bottom:15px;}
+.requestBox .step5 .inBox .dateBox input{width:calc(100% - 50px);}
+.requestBox .step5 .inBox .timeBox{font-size:14px; color:#666;}
+.requestBox .step5 .inBox .timeBox select{width:70px; text-align:center; margin-right:5px;}
+.requestBox .step5 .inBox .btn.date{background:#fe8b2d url('src/assets/icon/cal.png') no-repeat 50%; background-size:23px; width:46px; height:46px; }
+.requestBox .step5 .txtBox{text-align:center; color:#666; font-size:13px; margin-top:25px;}
+
+/* 출발/도착지 입력 */
+.requestBox .step6 .inBox{}
+.requestBox .step6 .startBox{padding-bottom:15px; border-bottom:1px solid #dcdcdc; margin-bottom:15px;}
+.requestBox .step6 .arrivalBox{padding-bottom:15px;}
+.requestBox .step6 .inBox .adrBox{margin-bottom:5px;}
+.requestBox .step6 .inBox .adrBox input{width:calc(100% - 52px); margin-right:5px;}
+.requestBox .step6 .inBox .btn.adr{background:#fe8b2d url('src/assets/icon/glass.png') no-repeat 50%; background-size:23px; width:46px; height:46px; }
+.requestBox .step6 .inBox .phoneBox input{width:calc(100% - 74px);}
+.requestBox .step6 .inBox .adrDetail{margin-bottom:15px;}
+.requestBox .step6 .inBox .btn.phon{border:1px solid #fe8b2d; color:#fe8b2d; width:70px; height:46px; font-size:14px;}
+.requestBox .step6 .txtBox{text-align:center; color:#666; font-size:13px; margin-top:25px;}
+
+/* 상/하차 방법 */
+.requestBox .step7 .inBox{}
+.requestBox .step7 .txtBox{text-align:center; color:#666; font-size:13px; margin-top:25px;}
+
+/* 요청사항 */
+.requestBox .step8 .inBox{}
+.requestBox .step8 .raBox{padding:10px 15px; border-radius:6px; background-color:#f5f5f5; margin-bottom:25px;}
+.requestBox .step8 .txtBox{text-align:center; color:#666; font-size:13px; margin-top:25px;}
+
+/* 요청사항 */
+.requestBox .step9 .inBox{}
+.requestBox .step9 .txtBox{text-align:center; color:#222; font-size:13px; margin-top:25px; background-color:#f5f5f5; border-radius:6px; padding:25px 0px;}
+.requestBox .step9 .txtBox em{font-size:20px; color:#fe8b2d;}
+/* //END -requestBox  */
+
+
+/*====================
+* historyBox
+=====================*/
+.historyBox{margin-bottom:30px;}
+.historyBox h2{margin-bottom:15px; font-size:20px; font-weight:500; position:relative;}
+.historyBox h2 a{font-size:14px; color:#555; font-weight:400; background:#e2e3e6 url("src/assets/icon/note2.png") no-repeat 12px 50%; background-size:10px;border-radius:15px; padding:4px 15px; padding-left:25px; position:absolute; right:0px;}
+.historyBox h2 button{font-size:14px; color:#555; font-weight:400; background:#e2e3e6 url("src/assets/icon/note2.png") no-repeat 12px 50%; background-size:10px;border-radius:15px; padding:4px 15px; padding-left:25px; position:absolute; right:0px;}
+.historyBox li{background-color:#fff; border-radius:10px; padding:20px 15px; margin-bottom:10px; display:flex; align-items: center;}
+
+.historyBox .statuBox{width:64px;}
+.historyBox .statuBox span{display:inline-block; text-align:center; white-space:nowrap; vertical-align: middle; font-size:13px; border-radius:6px; width:64px; height:65px; line-height:65px; color:#fff;}
+.historyBox .statuBox .transitSearch{background-color:#fe8b2d; height:52px; line-height:52px; margin-bottom:7px;}
+.historyBox .statuBox .transitClose{border:1px solid #d3d4d9; width:64px; height:35px; color:#666; font-size:13px; border-radius:6px; padding:initial;}
+.historyBox .statuBox .transitIng{background-color:#f1bc00;}
+.historyBox .statuBox .transitOk{background-color:#c0c1c7;}
+.historyBox .statuBox .transitCancel{background-color:#8b8c91;}
+
+.historyBox .comInfo{width:100%; flex:9 0 0;}
+.historyBox .comInfo .sangBox, .historyBox .comInfo .haBox{position:relative; padding-left:60px;}
+.historyBox .comInfo .sangBox{margin-bottom:10px;}
+.historyBox .comInfo .address{font-size:13px; color:#222; font-weight:400;}
+.historyBox .comInfo .date{font-size:13px; color:#777; font-weight:400;}
+.historyBox .comInfo .badge{border-radius:9px; border:1px solid #e0e0e4; background-color:#fff; color:#444; font-size:11px; font-weight:300; position:absolute; left:0px; top:2px;}
+/* //END -historyBox  */
+
+
+/*====================
+* clientBox
+=====================*/
+.clientBox{background-color:#fff; border-radius:10px; padding:20px 15px; margin-bottom:30px; overflow:hidden; height:68px; transition:all 0.3s ease-out;}
+.clientBox dt{background:url('src/assets/icon/earphone.png') no-repeat 0px 5px; background-size:25px; padding-left:30px; font-size:20px; font-weight:500; border-bottom:1px solid #d0d1d7; height:50px; position:relative;}
+.clientBox .btn{position:absolute; right:0px; top:-2px; background:#f5f5f5 url('src/assets/icon/arrow-down.png') no-repeat 50%; background-size:50%; width:35px; height:35px; border-radius:50%;}
+.clientBox dd .phoneBox{padding:20px 0px; padding-left:85px; color:#222; font-size:14px; background:url('src/assets/icon/phone.png') no-repeat 10px 50%; background-size:58px;}
+.clientBox dd .phoneBox .num{font-size:26px; font-weight:800;}
+.clientBox dd li{margin-bottom:10px;}
+.clientBox dd li a{display:block; border-radius:8.5px; border:1px solid #d3d4da; padding:15px; background:url('src/assets/icon/arrow-r.png') no-repeat calc(100% - 15px) 50%; background-size:9px; font-size:13.5px; font-weight:400;}
+.clientBox.on{height:376px;}
+.clientBox.on dt .btn{background:#f5f5f5 url('src/assets/icon/arrow-top.png') no-repeat 50%; background-size:50%;}
+/* //END -clientBox  */
+
+
+@media screen and (max-width:400px) {
+.requestBox .step4 .inBox li:nth-child(1), .requestBox .step4 .inBox li:nth-child(2){width:30%;}
+.requestBox .step4 .inBox li:nth-child(3){width:39%;}
+}

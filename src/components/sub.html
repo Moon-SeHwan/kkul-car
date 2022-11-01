@@ -1,0 +1,93 @@
+<?php include "./inc/head.html";?>
+<?php include "./inc/header.html";?>
+
+	<h2>화물정보</h2>
+
+	<!-- freight_info -->
+	<div class="freight_info">
+		
+		<div class="main_info">
+			<div class="photo"><img src="https://cdn.pixabay.com/photo/2018/09/26/22/22/milky-way-3705803_960_720.jpg" alt="" /></div>
+			<div class="info">
+				<ul>
+					<li><span class="badge">크기</span>100 x 100 x 100</li>
+					<li><span class="badge">중량</span>100 kg</li>
+					<li><span class="badge">체적</span>100 ㎥</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- sangBox -->
+		<div class="sangha sang">
+			<span class="badge">상차지</span>
+			<p class="address">경기도 성남시 분당구 탄천상로 164 C동 122호</p>
+			<p class="date">2022- 09-20 10:00</p>
+			<div class="photoBox">
+				<ul>
+					<li><div class="imgBox"><img src="https://images.pexels.com/photos/36762/scarlet-honeyeater-bird-red-feathers.jpg" alt="" /></div></li>
+					<li><div class="imgBox"><img src="https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" /></div></li>
+					<li><div class="imgBox"></div></li>
+				</ul>
+			</div>
+		</div>
+		<!-- //sangBox -->
+
+		<!-- haBox -->
+		<div class="sangha ha">
+			<span class="badge">하차지</span>
+			<p class="address">경기도 성남시 분당구 탄천상로 164 C동 122호</p>
+			<p class="date">2022- 09-20 10:00</p>
+			<div class="photoBox">
+				<ul>
+					<li><div class="imgBox"><img src="https://images.pexels.com/photos/1638459/pexels-photo-1638459.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" /></div></li>
+					<li><div class="imgBox"><img src="https://images.pexels.com/photos/1485894/pexels-photo-1485894.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" /></div></li>
+					<li><div class="imgBox"></div></li>
+				</ul>
+			</div>
+		</div>
+		<!-- //haBox  -->
+
+		<!-- transitMoney -->
+		<div class="transitMoney">
+			<p class="tit">운송비용</p>
+			<span class="money"><em>150,000</em>원</span><button class="btn up">운송비 UP</button>
+		</div>
+		<!-- //transitMoney -->
+
+		<!-- driver_info -->
+		<div class="driver_info">
+			<ul>
+				<li><em>차량번호</em>123소 1234</li>
+				<li><em>기사이름</em>홍길동 님</li>
+			</ul>
+		</div>
+		<!-- //driver_info -->
+
+	</div>
+	<!-- //freight_info -->
+
+	<!-- popupZon -->
+	<div class="popBox pop1">
+		<div class="popBody">
+			<div class="txtBox">
+				위 사진을 등록하시겠습니까?
+			</div>
+			<div class="btnBox">
+				<button class="btn on">등록</button>
+				<button class="btn off">다시찍기</button>
+			</div>
+		</div>
+	</div>
+	<!-- //popupZon  -->
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		/* 팝업 */
+		$('.transitMoney .btn.up').on("click",function(){
+			$('.popBox.pop1').bPopup();
+		});
+		/* //팝업 */
+	});
+</script>
+
+<?php include "./inc/footer.html";?>	
