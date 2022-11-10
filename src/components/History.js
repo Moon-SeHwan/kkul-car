@@ -1,22 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
 import Header from "src/common/Header";
 import Footer from "src/common/Footer";
-
-import { getRequestListByStatus } from "src/api/cargo";
-import { formatTimeStampCargo } from "src/utils/commonUtils";
 
 import "src/css/main.css";
 import "src/css/style.css";
 import "src/css/sub.css";
-import NoData from "./NoData";
 
 const History = () => {
-	const user = useSelector((state) => state.user)
 	const navigate = useNavigate()
 	const { pathname } = useLocation()
-	const [hist, setHist] = useState([])
 
 	const param = {
 		ownerUid: 5,
@@ -27,17 +20,10 @@ const History = () => {
 		navigate('/HistDetail', 
 		{
 			state: {
-				reqId: params.reqId
+				reqId: 2
 			}
 		})
 	}
-
-	useEffect(() => {
-		getRequestListByStatus(param)
-		.then(res => {
-			setHist(res.data)
-		})
-	}, [])
 
 	useEffect(() => {
     window.scrollTo(0, 0)
@@ -49,65 +35,40 @@ const History = () => {
 		switch(status) {
 			case 'RO':
 				return(
-					<span className="transitSearch">{params.statusName}</span>
+					<span className="status transitRo"><em>준비/등록중</em></span>
 				)
 			case 'MO':
 				return(
-					<span className="transitSearch">{params.statusName}</span>
+					<span className="status transitMo"><em>최적차량검색</em></span>
 				)
 			case 'MF':
 				return(
-					<span className="transitSearch">{params.statusName}</span>
+					<span className="status transitMf"><em>매칭완료</em></span>
 				)
 			case 'LC':
 				return(
-					<span className="transitIng">{params.statusName}</span>
+					<span className="status transitLc"><em>상차완료</em></span>
 				)
 			case 'TO':
 				return(
-					<span className="transitIng">{params.statusName}</span>
+					<span className="status transitTo"><em>운송중</em></span>
 				)
 			case 'UC':
 				return(
-					<span className="transitOk">{params.statusName}</span>
+					<span className="status transitUc"><em>하차완료</em></span>
 				)
 			case 'TF':
 				return(
-					<span className="transitOk">{params.statusName}</span>
+					<span className="status transitTf"><em>운송완료</em></span>
 				)
 			case 'TN':
 				return(
-					<span className="transitCancel">{params.statusName}</span>
+					<span className="status transitTn"><em>운송취소</em></span>
 				)
 			default:
-				break
+				return
 		}
 	}
-	const renderHist = hist?.map(data => {
-		return (
-			<ul key={data.reqId}>
-				<li onClick={() => toRequestDetail(data)}>
-					<div className="comInfo">
-						<div className="sangBox">
-							<span className="badge">상차지</span>
-							<p className="address">{data.departAddrSt}</p>
-							<p className="address">({data.departAddrSt2})</p>
-							<p className="date">{formatTimeStampCargo(data.departDatetimes)}</p>
-						</div>
-						<div className="haBox">
-							<span className="badge">하차지</span>
-							<p className="address">{data.arrivalAddrSt}</p>
-							<p className="address">({data.arrivalAddrSt2})</p>
-							<p className="date">{formatTimeStampCargo(data.arrivalDatetimes)}</p>	
-						</div>
-					</div>
-					<div className="statuBox">
-						{renderStat(data)}
-					</div>
-				</li>
-			</ul>
-		)
-	})
 
   return(
 		<div id ="contents">
@@ -117,9 +78,48 @@ const History = () => {
 						<h2>
 							이전내역
 						</h2>
-						{ hist?.length > 0 ?
-							renderHist : (<NoData/>)
-						}
+						<ul>
+							<li onClick={() => toRequestDetail()}>
+								<div className="comInfo">
+									<div className="sangBox">
+										<span className="badge">상차지</span>
+										<p className="address">경기 오산시 청학로 211</p>
+										<p className="address">(경기도립물향기수목원)</p>
+										<p className="date">2022-10-07 15:00</p>
+									</div>
+									<div className="haBox">
+										<span className="badge">하차지</span>
+										<p className="address">경기 성남시 분당구 성남대로 지하 55</p>
+										<p className="address">()</p>
+										<p className="date">2022-11-30 23:20</p>	
+									</div>
+								</div>
+								<div className="statuBox">
+									<span className="status transitTn"><em>운송취소</em></span>
+								</div>
+							</li>
+						</ul>
+						<ul>
+							<li onClick={() => toRequestDetail()}>
+								<div className="comInfo">
+									<div className="sangBox">
+										<span className="badge">상차지</span>
+										<p className="address">경기도 오산시 성호대로 141</p>
+										<p className="address">(오산시청)</p>
+										<p className="date">2022-09-09 17:55</p>
+									</div>
+									<div className="haBox">
+										<span className="badge">하차지</span>
+										<p className="address">충청남도 천안시 서북구 번영로 156</p>
+										<p className="address">(천안시청)</p>
+										<p className="date">2022-09-10 15:00</p>	
+									</div>
+								</div>
+								<div className="statuBox">
+									<span className="status transitTn"><em>운송취소</em></span>
+								</div>
+							</li>
+						</ul>
 					</div> 
 				</section>
 			<Footer/>

@@ -137,45 +137,6 @@ const HistDetail = () => {
     }
   }
 
-  const onChangeFare = (e) => { 
-    console.log(e)
-  }
-
-  const renderLoadImage = loadImages?.map(data => {
-    return (
-      <li key={data.imageSeq}>
-        <div className="imgBox">
-          <img key={data.imageSeq} src={data.contents} alt="" onClick={() => openLoadImage(data.imageSeq)}/>
-        </div>
-      </li>
-    )
-  })
-
-  const renderUnLoadImage = unloadImages?.map(data => {
-    return (
-      <li key={data.imageSeq}>
-        <div className="imgBox">
-          <img src={data.contents} alt="" onClick={() => openUnloadImage(data.imageSeq)}/>
-        </div>
-      </li>
-    )
-  })
-
-
-
-  const renderAddFareBtn = (params) => {
-    const status = params.status
-    if(status === 'RO' || status === 'MO'){
-      return(
-        <button className="btn up" onClick={openModal}>운송비 UP</button>
-      )
-    } else {
-      return(
-        <button className="btnDisable">운송비 UP</button>
-      )
-    }
-  }
-
   return(
     <div id="contents">
       <Header/>
@@ -183,29 +144,48 @@ const HistDetail = () => {
         <div className="freight_info">
           
           <div className="main_info">
-            <div className="photo"><img src={cargoImages[0]?.contents} alt="" /></div>
+            <div className="photo"><img src="/assets/img/jjanggu1.jpg" alt="" /></div>
             <div className="info">
               <ul>
-                <li><span className="badge">크기</span>{info.cwidth} x {info.cverticalreal} x {info.cheight}</li>
-                <li><span className="badge">중량</span>{info.cweight} kg</li>
-                <li><span className="badge">체적</span>{(info.cwidth * info.cverticalreal * info.cheight).toFixed(1)} ㎥</li>
+                <li><span className="badge">크기</span>1 x 1 x 2</li>
+                <li><span className="badge">중량</span>40 kg</li>
+                <li><span className="badge">체적</span>2.0 ㎥</li>
               </ul>
             </div>
           </div>
           
           <div className="sangha sang">
             <span className="badge">상차지</span>
-            <p className="address">{info.departAddrSt}</p>
-            <p className="address">{info.departAddrSt2}</p>
-            <p className="date">{info.departDatetimes}</p>
+            <p className="address">경기 오산시 역광장로 59</p>
+            <p className="address">오산역 환승센터</p>
+            <p className="date">2022-08-25 00:00</p>
             <div className="photoBox">
               <ul>
-                {renderLoadImage}
+                <li>
+                  <div className="imgBox">
+                    <img src="/assets/img/jjanggu1.jpg" alt="" onClick={() => openLoadImage(0)}/>
+                  </div>
+                </li>
+                <li>
+                  <div className="imgBox">
+                    <img src="/assets/img/jjanggu2.jpg" alt="" onClick={() => openLoadImage(1)}/>
+                  </div>
+                </li>
+                <li>
+                  <div className="imgBox">
+                    <img src="/assets/img/jjanggu3.jpg" alt="" onClick={() => openLoadImage(2)}/>
+                  </div>
+                </li>
+                <li>
+                  <div className="imgBox">
+                    <img src="/assets/img/jjanga1.jpg" alt="" onClick={() => openLoadImage(3)}/>
+                  </div>
+                </li>
               </ul>
               {isLoadImageOpen && (
                 <ImageViewer
-                  src={[...loadImages.map(img => img.contents)]}
-                  currentIndex={currentImage}
+                  src={["/assets/img/jjanggu1.jpg", "/assets/img/jjanggu2.jpg", "/assets/img/jjanggu3.jpg", "/assets/img/jjanga1.jpg"]}
+                  currentIndex={0}
                   disableScroll={false}
                   closeOnClickOutside={true}
                   onClose={closeLoadImage}
@@ -216,17 +196,36 @@ const HistDetail = () => {
 
           <div className="sangha ha">
             <span className="badge">하차지</span>
-            <p className="address">{info.arrivalAddrSt}</p>
-            <p className="address">{info.arrivalAddrSt2}</p>
-            <p className="date">{info.arrivalDatetimes}</p>
+            <p className="address">서울 중구 한강대로 405</p>
+            <p className="address">경부고속철도서울민자역</p>
+            <p className="date">2022-08-26 00:00</p>
             <div className="photoBox">
               <ul>
-                {renderUnLoadImage}
+                <li>
+                  <div className="imgBox">
+                    <img src="/assets/img/jjanggu1.jpg" alt="" onClick={() => openUnloadImage(0)}/>
+                  </div>
+                </li>
+                <li>
+                  <div className="imgBox">
+                    <img src="/assets/img/jjanggu2.jpg" alt="" onClick={() => openUnloadImage(1)}/>
+                  </div>
+                </li>
+                <li>
+                  <div className="imgBox">
+                    <img src="/assets/img/jjanggu3.jpg" alt="" onClick={() => openUnloadImage(2)}/>
+                  </div>
+                </li>
+                <li>
+                  <div className="imgBox">
+                    <img src="/assets/img/jjanga1.jpg" alt="" onClick={() => openUnloadImage(3)}/>
+                  </div>
+                </li>
               </ul>
               {isUnloadImageOpen && (
                 <ImageViewer
-                  src={[...unloadImages.map(img => img.contents)]}
-                  currentIndex={currentImage}
+                  src={["/assets/img/jjanggu1.jpg", "/assets/img/jjanggu2.jpg", "/assets/img/jjanggu3.jpg", "/assets/img/jjanga1.jpg"]}
+                  currentIndex={0}
                   disableScroll={false}
                   closeOnClickOutside={true}
                   onClose={closeUnloadImage}
@@ -237,8 +236,8 @@ const HistDetail = () => {
 
           <div className="transitMoney">
             <p className="tit">운송비용</p>
-            <span className="money"><em>{formatFare(info.transitFare + info.additionalFare)}</em>원</span>
-            {renderAddFareBtn(info)}
+            <span className="money"><em>{formatFare(35000)}</em>원</span>
+            <button className="btn up" onClick={openModal}>운송비 UP</button>
           </div>
           
           {/* <Modal
@@ -257,8 +256,8 @@ const HistDetail = () => {
           
           <div className="driver_info">
             <ul>
-              <li><em>차량번호</em>{toInfo?.carNumber}</li>
-              <li><em>기사이름</em>{toInfo?.truckownerName} 님</li>
+              <li><em>차량번호</em>45오4545</li>
+              <li><em>기사이름</em>테스트 님</li>
             </ul>
           </div>
         </div>
