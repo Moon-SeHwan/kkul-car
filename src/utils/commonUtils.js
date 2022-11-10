@@ -12,6 +12,17 @@ export const formatTimeStamp = (dateString) => {
   return `${formatDate.substring(0, 4)}년${formatDate.substring(5, 7)}월${formatDate.substring(8, 10)}일 ${formatDate.substring(11, 19)}`
 }
 
+
+export const formatTimeStampCargo = (dateString) => {
+  const date = new Date(dateString)
+
+  date.setHours(date.getHours() + 9)
+
+  const formatDate = date.toISOString().replace("T", " ")
+
+  return `${formatDate.substring(0, 4)}-${formatDate.substring(5, 7)}-${formatDate.substring(8, 10)} ${formatDate.substring(11, 16)}`
+}
+
 //  param : datetime, return yyyy-mm-dd fommat
 export const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -50,4 +61,9 @@ return year + '-' + monthNames[monthIndex] + '-' + day + ' ' + date.getHours() +
 //  param : yyyymmdd, return yyyy-mm-dd fommat
 export const formatDateByString = (dateString) => {
 return dateString.substring(0,4) + '-' + dateString.substring(4,6) + '-' +  dateString.substring(6,8)
-}  
+}
+
+//금액 콤마 찍기
+export const formatFare = (fare) => {
+  return fare.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+}

@@ -5,7 +5,7 @@ const initialState = {
   step: 0,
   imageList: [],
   cargoName: "",
-  truckUid: 0,
+  truckType: "",
   cweight: 0,
   cheight: 0,
   cwidth: 0,
@@ -13,14 +13,16 @@ const initialState = {
   departDatetimes: "",
   arrivalDatetimes: "",
   departAddrSt: "",
+  departAddrSt2: "",
   departAddrOld: "",
   arrivalAddrSt: "",
+  arrivalAddrSt2: "",
   arrivalAddrOld: "",
   receiverPhone: "",
-  departLatitude: "",   // 위도 latitude 
-  departLongitude: "",  // 경도 longitude
-  arrivalLatitude: "",  // 위도 latitude
-  arrivalLongitude: "", // 경도 longitude
+  departLatitude: 0,   // 위도 latitude 
+  departLongitude: 0,  // 경도 longitude
+  arrivalLatitude: 0,  // 위도 latitude
+  arrivalLongitude: 0, // 경도 longitude
   loadMethod: {
     value: "",
     name: "선택"
@@ -29,9 +31,11 @@ const initialState = {
     value: "",
     name: "선택"
   },
-  requestItems: [],
+  requestItems: "",
   transitFare: 0,
-  additionalFare: 0
+  additionalFare: 0,
+  directDistance: 0,
+  realDistance: 0,
 }
 
 const cargoSlice = createSlice({
@@ -41,51 +45,55 @@ const cargoSlice = createSlice({
     REQUEST_COMPLETE() {
       return initialState
     },
-    SET_IMAGE(state, action) {
-      state.step = 1
+    STEP2(state, action) {
+      state.step = 2
       state.imageList = [...action.payload.image]
     },
-    SET_REQUEST_1(state, action) {
-      state.step = 1
+    STEP3(state, action) {
+      state.step = 3
       state.cargoName = action.payload.cargoName
-      state.truckUid = action.payload.truckUid
+      state.truckType = action.payload.truckType
     },
-    SET_REQUEST_2(state, action) {
-      state.step = 2
+    STEP4(state, action) {
+      state.step = 4
       state.cweight = action.payload.cweight
       state.cheight = action.payload.cheight
       state.cwidth = action.payload.cwidth
       state.cverticalreal = action.payload.cverticalreal
     },
-    SET_REQUEST_3(state, action) {
-      state.step = 3
+    STEP5(state, action) {
+      state.step = 5
       state.departDatetimes = action.payload.departDatetimes
       state.arrivalDatetimes = action.payload.arrivalDatetimes
     },
-    SET_REQUEST_4(state, action) {
-      state.step = 4
+    STEP6(state, action) {
+      state.step = 6
       state.departAddrSt = action.payload.departAddrSt
+      state.departAddrSt2 = action.payload.departAddrSt2
       state.departAddrOld = action.payload.departAddrOld
       state.arrivalAddrSt = action.payload.arrivalAddrSt
+      state.arrivalAddrSt2 = action.payload.arrivalAddrSt2
       state.arrivalAddrOld = action.payload.arrivalAddrOld
       state.departLatitude = action.payload.departLatitude
       state.departLongitude = action.payload.departLongitude
       state.arrivalLatitude = action.payload.arrivalLatitude
       state.arrivalLongitude = action.payload.arrivalLongitude
     },
-    SET_REQUEST_5(state, action) {
-      state.step = 5
+    STEP7(state, action) {
+      state.step = 7
       state.loadMethod = { ...action.payload.loadMethod }
       state.unloadMethod = { ...action.payload.unloadMethod }
     },
-    SET_REQUEST_6(state, action) {
-      state.step = 6
+    STEP8(state, action) {
+      state.step = 8
       state.requestItems = action.payload.requestItems
     },
-    SET_REQUEST_7(state, action) {
-      state.step = 7
+    STEP9(state, action) {
+      state.step = 9
       state.transitFare = action.payload.transitFare
       state.additionalFare = action.payload.additionalFare
+      state.directDistance = action.payload.directDistance
+      state.realDistance = action.payload.realDistance
     }
   },
   extraReducers: (builder) => {

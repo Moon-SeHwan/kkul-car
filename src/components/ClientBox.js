@@ -1,7 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ClientBox = () => {
+  const navigate = useNavigate()
+
+  const onClickToTrTerms = () => {
+    navigate('TrTerms')
+  }
+
+  const onClickToUsTerms = () => {
+    navigate('UsTerms')
+  }
+
+  const onClickToPrTerms = () => {
+    navigate('PrTerms')
+  }
+
   const [clientClassName, setClientClassName] = useState("clientBox")
+
+  useEffect(() => {
+    setClientClassName(() => "clientBox on")
+  }, [])
   
   const handleClientBoxArrowDown = () => {
     setClientClassName((prevName) => {
@@ -16,15 +35,16 @@ const ClientBox = () => {
         <dt>고객 센터 <button className="btn arw-dw" onClick={() => handleClientBoxArrowDown()}></button></dt>
         <dd>
           <div className="phoneBox">
-            <a href="tel:070-1234-5678">
+            <img src={require("src/assets/icon/phone.png")} alt="" />
+            <a href="tel:042-488-8741">
               365일 24시간 언제 어디서나!<br />
-              <em className="num">070-1234-5678</em>
+              <em className="num">042-488-8741</em>
             </a>
           </div>
           <ul>
-            <li><a href="terms.html">운송약관</a></li>
-            <li><a href="#!">이용약관</a></li>
-            <li><a href="#!">개인정보보호방침</a></li>
+            <li onClick={onClickToTrTerms}>운송약관</li>
+            <li onClick={onClickToUsTerms}>이용약관</li>
+            <li onClick={onClickToPrTerms}>개인정보보호방침</li>
           </ul>
         </dd>
       </dl>

@@ -5,12 +5,12 @@ import TopBanner from "./common/TopBanner";
 import RequestBox from "./components/RequestBox";
 import HistoryBox from "./components/HistoryBox";
 import ClientBox from "./components/ClientBox";
+import Modal from "src/common/Modal";
 
 import "src/css/layout.css";
 import "src/css/main.css";
 import "src/css/style.css";
 import "src/css/popup.css";
-import "src/css/sub.css";
 
 const Main = () => {
   return (
@@ -21,6 +21,7 @@ const Main = () => {
         <RequestBox />
         <HistoryBox />
         <ClientBox />
+        <Modal />
       </section>
       <Footer />
     </div>

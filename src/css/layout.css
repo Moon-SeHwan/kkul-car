@@ -291,6 +291,9 @@ input:-moz-placeholder{color:#c0c0c0}
 .radioBox input[type='radio']{position:absolute; clip: rect(0,0,0,0); pointer-events:none;}
 .radioBox input[type='radio'] + label {padding-left:28px; height:24px;display:inline-block;line-height:24px;background-repeat:no-repeat;background-position: 0 0;font-size:12px; vertical-align:middle; cursor:pointer; background-size:24px;}
 .radioBox input[type='radio']:checked + label {background-position:0px -27px;}
+.radioBox input[type='checkbox']{position:absolute; clip: rect(0,0,0,0); pointer-events:none;}
+.radioBox input[type='checkbox'] + label {padding-left:28px; height:24px;display:inline-block;line-height:24px;background-repeat:no-repeat;background-position: 0 0;font-size:12px; vertical-align:middle; cursor:pointer; background-size:24px;}
+.radioBox input[type='checkbox']:checked + label {background-position:0px -27px;}
 .radioBox label{background-image:url('src/assets/icon/chk.png');-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
 
 /* 체크박스 */
@@ -307,37 +310,23 @@ select.sel.a1{display:inline-block; width:100%;height:47px;padding:6px 10px;font
 select::-ms-expand {display: none;}
 /*======/   END FORM   /======*/
 
-
- /*====================
-* 달력 - 
-=====================*/
-.ui-datepicker table {width: 100%; font-size: .9em; border-collapse: collapse; margin:0 0 .4em; }
-.ui-datepicker th { padding: .7em .3em; text-align: center; font-weight: bold; border: 0;  }
-.ui-datepicker td { border: 0; padding: 1px; }
-.ui-datepicker td span, .ui-datepicker td a { display: block; padding: .2em; text-align: right; text-decoration: none; }
-.ui-datepicker .ui-datepicker-title { margin: 0 2.3em; line-height: 1.8em; text-align: center; }
-.ui-datepicker .ui-datepicker-title select { font-size:1em; margin:1px 0; }
-.ui-datepicker select.ui-datepicker-month-year {width: 100%;}
-.ui-datepicker select.ui-datepicker-month, 
-.ui-datepicker select.ui-datepicker-year { width: 49%;}
-
-.ui-datepicker {display: none;  width: 270px; padding: 0; margin-top: 10px; border: 0; border-radius:6px; overflow: hidden; background: #fff; box-shadow:2px 2px 5px rgb(231 231 231); border:1px solid #ccc;}
-.ui-datepicker .ui-widget-header { position: relative; padding: 6px 0px; border-radius:0px; background:#fe8b2d; color: #fff; border:none;}
-.ui-datepicker .ui-datepicker-month, .ui-datepicker .ui-datepicker-year { width: 70px; height: 26px; line-height: 26px; background:#fe7607;color: #fff; border:0px; border-radius:3px; text-align:center;}
-/* 기본틀 */
-.ui-datepicker thead th{font-size:15px; font-weight:normal; padding:8px 0px;}
-.ui-datepicker .ui-state-default {display: block; border: 0; padding: 0; font-size:15px; text-align: center; background: #fff; color: #333; line-height:30px;}
-.ui-datepicker .ui-state-default:hover{background-color:#eee;}
-.ui-datepicker-calendar th:first-child > span, .ui-datepicker-calendar td:first-child > a { color: #dc3545; }
-.ui-datepicker-calendar th:last-child > span, .ui-datepicker-calendar td:last-child > a { color: #007bff; }
-.ui-datepicker .ui-datepicker-calendar .ui-state-active {background: #6f42c1; color: #fff; font-weight: 600; }/*선택*/
-.ui-datepicker .ui-datepicker-calendar .ui-datepicker-today{border:1px solid #97a6fa;}/*오늘*/
-/*하단 버튼*/
-.ui-datepicker .ui-widget-content{border:none; border-top:1px solid #ccc;}
-.ui-datepicker .ui-datepicker-buttonpane button{padding:0px; width:45%; background-color:#ddd;}
-.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current{background-color:#d26900; font-weight:bold; color:#fff;}
-/* 이전 다음 */
-.ui-datepicker .ui-datepicker-prev.ui-state-hover, .ui-datepicker .ui-datepicker-next.ui-state-hover{ background: rgba(0,0,0,0.1); border: 0; cursor:pointer;}
-.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next{height:30px; width:30px; top:5px; display:none;}
-.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span{background-image:none; content:'>'; color:#fff;}
-/* //END -  */
+/* 주소 모달 */
+.modal { display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 99; background-color:#00000073;}
+.modal > section { width: 90%; max-width: 450px; margin: 0 auto; border-radius:6px; background-color: #fff; animation: modal-show 0.3s;} 
+.modal > section > header { position: relative; padding: 16px 64px 16px 16px; background-color: #fe8b2d; font-weight: 700; color:#fff; border-radius:6px 6px 0 0;} 
+.modal > section > header .btn.close{position: absolute; top:13px; right:5px; padding:0px; color:#fff; width:40px; height:40px;} 
+.modal > section > header input[type='button'] { color:#fff; } 
+.modal > section > footer {padding: 12px 16px; border-top:1px solid #ddd;}
+.modal > section > footer.btnBox{text-align:center;}
+.modal > section > footer.btnBox .btn{border-radius:6px; min-width:100px; height:45px; font-size:15px; font-weight:500;}
+.modal > section > footer.btnBox .btn.on{background-color:#fe8b2d; color:#fff; margin-right:3px;}
+.modal > section > footer.btnBox .btn.off{background-color:#fff; border:1px solid #a9a9ab; color:#666; margin-left:3px;}
+.modal.openModal { display: flex; align-items: center; /* 팝업이 열릴때 스르륵 열리는 효과 */animation: modal-bg-show 0.3s; } 
+@keyframes modal-show { 
+ from { opacity: 0; margin-top: -50px; } 
+ to { opacity: 1; margin-top: 0; } 
+ }
+@keyframes modal-bg-show { 
+ from { opacity: 0; } 
+ to { opacity: 1; } 
+}

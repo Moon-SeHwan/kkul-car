@@ -34,6 +34,7 @@
 .freight_info .transitMoney .money{font-size:13px; font-weight:500; color:#222; margin-right:15px;}
 .freight_info .transitMoney .money em{font-size:15px; font-weight:700; color:#fe8b2d;}
 .freight_info .transitMoney .btn{background-color:#fff; border:1px solid #9d9ea0; border-radius:6px; color:#666; font-size:12px; height:35px; }
+.freight_info .transitMoney .btnDisable{background-color:#fff; border:1px solid #9d9ea0; border-radius:6px; color:#666; font-size:12px; height:35px; opacity:0.65; Cursor: not-allowed; }
 
 .freight_info .driver_info{margin-top:30px; border-top:1px solid #d0d1d7; padding-top:15px;}
 .freight_info .driver_info li{position:relative; padding-left:10px; font-size:14px; color:#222; margin-bottom:10px;}
@@ -69,4 +70,24 @@
 * termsBox
 =====================*/
 .termsBox{overflow:hidden; border-radius:6px; padding:20px 15px; background-color:#fff;}
-/* //termsBox  */
+.termsBox .txtBox{background-color:#f5f5f5; padding:10px;}
+.termsBox .temsTxt{margin-bottom:15px; font-size:14px; color:#222; font-weight:300; white-space: pre-wrap;}
+.termsBox .temsTxt .tit{font-size:17px; font-weight:bold; color:#222; margin-bottom:5px;}
+
+
+.modalContainer {
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
+    border: 1px solid #ccc;
+    background: #fff;
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 20px;
+}
+
+.modalContainer .btnBox{margin-top:30px; text-align:center;}
+.modalContainer .btnBox .btn{border-radius:6px; width:100px; height:45px; font-size:15px; font-weight:500;}

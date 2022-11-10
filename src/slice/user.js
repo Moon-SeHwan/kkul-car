@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { PURGE } from "redux-persist"
 
 const initialState = {
-  ownerUid:'',
+  ownerUid: 0,
   name: '',
   email: '',
   phoneNumber: '',

@@ -11,6 +11,8 @@ const topBannerSettings = {
   slidesToScroll: 1,
   autoplay: true,
   autoplaySpeed: 3000,
+  arrows: false,
+  dotsClass: "slickDots",
 };
 
 const TopBanner = () => {
