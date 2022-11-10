@@ -15,15 +15,15 @@ const HistoryBox = () => {
   const navigate = useNavigate()
 
   const onClickToHist = () => {
-		if (token.accessToken === "") {
-			alert("로그인 후 이용 가능합니다.")
-			return
-		}
+		// if (token.accessToken === "") {
+		// 	alert("로그인 후 이용 가능합니다.")
+		// 	return
+		// }
 		
     navigate('History')
   }
 
-  const toRequestDetail = (params) => {
+  const toRequestDetail = () => {
 		navigate('/HistDetail'
 		, {
 			state:{
@@ -101,7 +101,7 @@ const HistoryBox = () => {
 		return(
 			<ul key={data.reqId}>
 				<li>
-					<div className="comInfo" onClick={() => toRequestDetail(data)}>
+					<div className="comInfo" onClick={() => toRequestDetail()}>
 						<div className="sangBox">
 							<span className="badge">상차지</span>
 							<p className="address">{data.departAddrSt}</p>
@@ -133,7 +133,7 @@ const HistoryBox = () => {
       </h2>
 			<ul>
 				<li>
-					<div className="comInfo" onClick={() => toRequestDetail(data)}>
+					<div className="comInfo" onClick={() => toRequestDetail()}>
 						<div className="sangBox">
 							<span className="badge">상차지</span>
 							<p className="address">경기 오산시 역광장로 59</p>
@@ -148,8 +148,8 @@ const HistoryBox = () => {
 						</div>
 					</div>
 					<div className="statuBox">
-						<span className="status transitTn"><em>최적차량검색중</em></span>
-						<button className="btn transitClose" onClick={() => onClickCancel(data)}>취소하기</button>
+						<span className="status transitMo"><em>최적차량검색중</em></span>
+						<button className="btn transitClose" onClick={() => onClickCancel()}>취소하기</button>
 					</div>
 				</li>
 			</ul>

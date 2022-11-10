@@ -11,11 +11,6 @@ const History = () => {
 	const navigate = useNavigate()
 	const { pathname } = useLocation()
 
-	const param = {
-		ownerUid: 5,
-		status: ['TF', 'TN']
-	}
-
 	const toRequestDetail = (params) => {
 		navigate('/HistDetail', 
 		{

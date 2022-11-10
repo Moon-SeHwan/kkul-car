@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ImageViewer from "react-simple-image-viewer";
 // import Modal from "react-modal";
@@ -23,8 +23,9 @@ import "src/css/sub.css";
 import "src/css/popup.css";
 
 const HistDetail = () => {
-  const [info, setInfo] = useState([])
-  const [toInfo, setToInfo] = useState([])
+  const fareRef = useRef()
+  const [cargoInfo, setCargoInfo] = useState([])
+  const [truckInfo, setTruckInfo] = useState([])
   const [cargoImages, setCargoImages] = useState([])
   const [loadImages, setLoadImages] = useState([])
   const [unloadImages, setUnloadImages] = useState([])
@@ -32,7 +33,6 @@ const HistDetail = () => {
   const [isLoadImageOpen, setIsLoadImageOpen] = useState(false)
   const [isUnloadImageOpen, setIsUnloadImageOpen] = useState(false)
   const [additionalFare, setAdditionalFare] = useState(0)
-  const [totalFare, setTotalFare] = useState(0)
 
   const location = useLocation()
   const dispatch = useAppDispatch()
@@ -41,33 +41,8 @@ const HistDetail = () => {
   const reqId = location.state.reqId
 
   useEffect(() => {
-    getRequestDetail(reqId)
-    .then(res => {
-      getColValue(res.data)
-      setInfo(res.data)
-    })
-
-    getRequestHist(reqId)
-    .then(res => {
-      setToInfo(res.data.truckowner)
-    })
-  }, [])
-
-  useEffect(() => {
     window.scrollTo(0, 0)
   }, [location.pathname])
-
-  const getColValue = (obj) => {
-    console.log(obj)
-    obj.arrivalDatetimes = formatDateTimeToKorea(obj.arrivalDatetimes)
-    obj.departDatetimes = formatDateTimeToKorea(obj.departDatetimes)
-    obj.totalFare = obj.transitFare + obj.additionalFare
-
-    setTotalFare(obj.totalFare)
-    setCargoImages(obj.cargoImages)
-    setLoadImages(obj.loadImages)
-    setUnloadImages(obj.unloadImages)
-  }
 
   const addFare = () =>{
     const param = {
@@ -109,11 +84,11 @@ const HistDetail = () => {
         d: "fare",
         header: "운송비 추가",
         onBtnHidden: false,
-        onBtnFunc: addFare,
+        onBtnFunc: () => addFare,
         components: 
         <>
           <div className="inBox">
-            <input type="text" value={totalFare} readOnly onChange={onChangeFare} />
+            <input ref={fareRef} type="text" value={35000} readOnly />
             <button className="btn plus" onClick={handlePlusClick}>+</button>
             <button className="btn minus" onClick={handleMinusClick}>-</button>
           </div>
@@ -123,15 +98,25 @@ const HistDetail = () => {
   }
 
   const handlePlusClick = () => {
-    setAdditionalFare(prevNumber => prevNumber + 5000)
-    setTotalFare(prevNumber => prevNumber + 5000)
+    fareRef.current.value = parseInt(fareRef.current.value) + 5000
+
+    setCargoInfo({
+      ...cargoInfo,
+      totalFare: cargoInfo.totalFare + 5000
+    })
   }
 
   const handleMinusClick = () => {
-    if(totalFare > info.transitFare){
-      //if(info.additionalFare !== null)
-      setAdditionalFare(prevNumber => prevNumber - 5000)
-      setTotalFare(prevNumber => prevNumber - 5000)
+    const total = cargoInfo.transitFare + cargoInfo.additionalFare
+    console.log(cargoInfo.totalFare)
+    console.log(total)
+    if(cargoInfo.totalFare >= total){
+      fareRef.current.value = parseInt(fareRef.current.value) - 5000
+      
+      setCargoInfo({
+        ...cargoInfo,
+        totalFare: cargoInfo.totalFare - 5000
+      })
     } else {
       alert('처음 책정된 운송비보다 작을 수 없습니다.')
     }
@@ -144,7 +129,7 @@ const HistDetail = () => {
         <div className="freight_info">
           
           <div className="main_info">
-            <div className="photo"><img src="/assets/img/jjanggu1.jpg" alt="" /></div>
+            <div className="photo"><img src={require("src/assets/img/jjanggu1.jpg")} alt="" /></div>
             <div className="info">
               <ul>
                 <li><span className="badge">크기</span>1 x 1 x 2</li>
@@ -163,28 +148,28 @@ const HistDetail = () => {
               <ul>
                 <li>
                   <div className="imgBox">
-                    <img src="/assets/img/jjanggu1.jpg" alt="" onClick={() => openLoadImage(0)}/>
+                    <img src={require("src/assets/img/jjanggu1.jpg")} alt="" onClick={() => openLoadImage(0)}/>
                   </div>
                 </li>
                 <li>
                   <div className="imgBox">
-                    <img src="/assets/img/jjanggu2.jpg" alt="" onClick={() => openLoadImage(1)}/>
+                    <img src={require("src/assets/img/jjanggu2.jpg")} alt="" onClick={() => openLoadImage(1)}/>
                   </div>
                 </li>
                 <li>
                   <div className="imgBox">
-                    <img src="/assets/img/jjanggu3.jpg" alt="" onClick={() => openLoadImage(2)}/>
+                    <img src={require("src/assets/img/jjanggu3.jpg")} alt="" onClick={() => openLoadImage(2)}/>
                   </div>
                 </li>
                 <li>
                   <div className="imgBox">
-                    <img src="/assets/img/jjanga1.jpg" alt="" onClick={() => openLoadImage(3)}/>
+                    <img src={require("src/assets/img/jjanga1.jpg")} alt="" onClick={() => openLoadImage(3)}/>
                   </div>
                 </li>
               </ul>
               {isLoadImageOpen && (
                 <ImageViewer
-                  src={["/assets/img/jjanggu1.jpg", "/assets/img/jjanggu2.jpg", "/assets/img/jjanggu3.jpg", "/assets/img/jjanga1.jpg"]}
+                  src={[require("src/assets/img/jjanggu1.jpg"), require("src/assets/img/jjanggu2.jpg"), require("src/assets/img/jjanggu3.jpg"), require("src/assets/img/jjanga1.jpg")]}
                   currentIndex={0}
                   disableScroll={false}
                   closeOnClickOutside={true}
@@ -203,28 +188,28 @@ const HistDetail = () => {
               <ul>
                 <li>
                   <div className="imgBox">
-                    <img src="/assets/img/jjanggu1.jpg" alt="" onClick={() => openUnloadImage(0)}/>
+                    <img src={require("src/assets/img/jjanggu1.jpg")} alt="" onClick={() => openUnloadImage(0)}/>
                   </div>
                 </li>
                 <li>
                   <div className="imgBox">
-                    <img src="/assets/img/jjanggu2.jpg" alt="" onClick={() => openUnloadImage(1)}/>
+                    <img src={require("src/assets/img/jjanggu2.jpg")} alt="" onClick={() => openUnloadImage(1)}/>
                   </div>
                 </li>
                 <li>
                   <div className="imgBox">
-                    <img src="/assets/img/jjanggu3.jpg" alt="" onClick={() => openUnloadImage(2)}/>
+                    <img src={require("src/assets/img/jjanggu3.jpg")} alt="" onClick={() => openUnloadImage(2)}/>
                   </div>
                 </li>
                 <li>
                   <div className="imgBox">
-                    <img src="/assets/img/jjanga1.jpg" alt="" onClick={() => openUnloadImage(3)}/>
+                    <img src={require("src/assets/img/jjanga1.jpg")} alt="" onClick={() => openUnloadImage(3)}/>
                   </div>
                 </li>
               </ul>
               {isUnloadImageOpen && (
                 <ImageViewer
-                  src={["/assets/img/jjanggu1.jpg", "/assets/img/jjanggu2.jpg", "/assets/img/jjanggu3.jpg", "/assets/img/jjanga1.jpg"]}
+                  src={[require("src/assets/img/jjanggu1.jpg"), require("src/assets/img/jjanggu2.jpg"), require("src/assets/img/jjanggu3.jpg"), require("src/assets/img/jjanga1.jpg")]}
                   currentIndex={0}
                   disableScroll={false}
                   closeOnClickOutside={true}
@@ -237,7 +222,7 @@ const HistDetail = () => {
           <div className="transitMoney">
             <p className="tit">운송비용</p>
             <span className="money"><em>{formatFare(35000)}</em>원</span>
-            <button className="btn up" onClick={openModal}>운송비 UP</button>
+            <button className="btn up" onClick={() => openModal()}>운송비 UP</button>
           </div>
           
           {/* <Modal
