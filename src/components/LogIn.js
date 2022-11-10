@@ -38,10 +38,10 @@ const LogIn = ({ inputRef }) => {
   }
 
   const handleNextClick = () => {
-    if (user.ownerUid === 0) {
-      alert("로그인 후 사용할 수 있습니다.")
-      return
-    }
+    // if (user.ownerUid === 0) {
+    //   alert("로그인 후 사용할 수 있습니다.")
+    //   return
+    // }
 
     inputRef.current.slickNext()
   }
@@ -71,9 +71,9 @@ const LogIn = ({ inputRef }) => {
           user.ownerUid === 0 ? 
           <></> 
           : 
-        <button className="btn req" onClick={() => handleNextClick()}><i><ReceiptLongIcon /></i>의뢰하기</button>
-        
+          <button className="btn req" onClick={() => handleNextClick()}><i><ReceiptLongIcon /></i>의뢰하기</button>
         }
+        <button className="btn req" onClick={() => handleNextClick()}><i><ReceiptLongIcon /></i>의뢰하기</button>
       </div>
     </div>
   )

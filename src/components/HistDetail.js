@@ -1,9 +1,13 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ImageViewer from "react-simple-image-viewer";
-import Modal from "react-modal";
+// import Modal from "react-modal";
 import Header from "src/common/Header";
 import Footer from "src/common/Footer";
+import Modal from "src/common/Modal";
+
+import { useAppDispatch } from 'src/store';
+import modalSlice from "src/slice/modal";
 
 import { formatDateTimeToKorea } from "src/utils/dateUtil";
 import { formatFare } from "src/utils/commonUtils";
@@ -27,11 +31,11 @@ const HistDetail = () => {
   const [currentImage, setCurrentImage] = useState(0)
   const [isLoadImageOpen, setIsLoadImageOpen] = useState(false)
   const [isUnloadImageOpen, setIsUnloadImageOpen] = useState(false)
-  const [mdOpen, setMdOpen] = useState(false);
-  const [additionalFare, setAdditionalFare] = useState(0);
-  const [totalFare, setTotalFare] = useState(0);
+  const [additionalFare, setAdditionalFare] = useState(0)
+  const [totalFare, setTotalFare] = useState(0)
+
   const location = useLocation()
-  
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const reqId = location.state.reqId
@@ -41,14 +45,12 @@ const HistDetail = () => {
     .then(res => {
       getColValue(res.data)
       setInfo(res.data)
-      console.log(res.data)
     })
 
     getRequestHist(reqId)
     .then(res => {
       setToInfo(res.data.truckowner)
     })
-    console.log(additionalFare)
   }, [])
 
   useEffect(() => {
@@ -56,10 +58,12 @@ const HistDetail = () => {
   }, [location.pathname])
 
   const getColValue = (obj) => {
+    console.log(obj)
     obj.arrivalDatetimes = formatDateTimeToKorea(obj.arrivalDatetimes)
     obj.departDatetimes = formatDateTimeToKorea(obj.departDatetimes)
     obj.totalFare = obj.transitFare + obj.additionalFare
-    setTotalFare(obj.transitFare + obj.additionalFare)
+
+    setTotalFare(obj.totalFare)
     setCargoImages(obj.cargoImages)
     setLoadImages(obj.loadImages)
     setUnloadImages(obj.unloadImages)
@@ -70,11 +74,12 @@ const HistDetail = () => {
       reqId: reqId,
       additionalFare: additionalFare
     }
+
     updateAddFare(param)
     .then(res => {
       alert(res.data)
     })
-    setMdOpen(false);
+
     navigate(0)
   }
 
@@ -99,11 +104,22 @@ const HistDetail = () => {
   }
 
   const openModal = () => {
-    setMdOpen(true);
-  }
-
-  const closeModal = () => {
-    setMdOpen(false);
+    dispatch(
+      modalSlice.actions.SHOW({
+        d: "fare",
+        header: "운송비 추가",
+        onBtnHidden: false,
+        onBtnFunc: addFare,
+        components: 
+        <>
+          <div className="inBox">
+            <input type="text" value={totalFare} readOnly onChange={onChangeFare} />
+            <button className="btn plus" onClick={handlePlusClick}>+</button>
+            <button className="btn minus" onClick={handleMinusClick}>-</button>
+          </div>
+        </>
+      })
+    )
   }
 
   const handlePlusClick = () => {
@@ -122,7 +138,7 @@ const HistDetail = () => {
   }
 
   const onChangeFare = (e) => { 
-    setTotalFare(totalFare)
+    console.log(e)
   }
 
   const renderLoadImage = loadImages?.map(data => {
@@ -152,7 +168,6 @@ const HistDetail = () => {
     if(status === 'RO' || status === 'MO'){
       return(
         <button className="btn up" onClick={openModal}>운송비 UP</button>
-        
       )
     } else {
       return(
@@ -224,12 +239,9 @@ const HistDetail = () => {
             <p className="tit">운송비용</p>
             <span className="money"><em>{formatFare(info.transitFare + info.additionalFare)}</em>원</span>
             {renderAddFareBtn(info)}
-            
-
-            
           </div>
           
-          <Modal
+          {/* <Modal
             className="modalContainer"
             isOpen={mdOpen}
             onRequestClose={closeModal}
@@ -241,7 +253,7 @@ const HistDetail = () => {
               <button className="btn" onClick={addFare}>적용</button>
               <button className="btn" onClick={closeModal}>close</button>
             </div>
-          </Modal>
+          </Modal> */}
           
           <div className="driver_info">
             <ul>
@@ -250,6 +262,7 @@ const HistDetail = () => {
             </ul>
           </div>
         </div>
+        <Modal />
       </section>
       <Footer/>
     </div>
@@ -257,4 +270,4 @@ const HistDetail = () => {
 }
 
 export default HistDetail;
-Modal.setAppElement('#root')
+// Modal.setAppElement('#root')

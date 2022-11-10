@@ -160,8 +160,8 @@ const RequestBox = () => {
             <p className="mgt30">운송을 의뢰하시겠습니까?</p>
           </div>	
           <div className="btnBox">
+            <button className="btn off" onClick={() => handlePrevClick()}>이전</button>
             <button className="btn on" onClick={() => handleSendConfirm()}>수락</button>
-            <button className="btn off" onClick={() => handlePrevClick()}>이전으로</button>
           </div>
         </div>
       </Slider>

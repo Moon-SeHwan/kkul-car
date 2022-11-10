@@ -20,10 +20,15 @@ const request = axios.create({
 request.interceptors.request.use(config => {
   const TOKEN = store.getState().token;
 
-  config.headers = {
-    "Authorization": `Bearer ${TOKEN.accessToken}`
+  config = {
+    ...config,
+    headers: {
+      "Authorization": `Bearer ${TOKEN.accessToken}`
+    },
+    validateStatus: status => status < 500,
+    withCredentials: true,
   }
-
+  
   return config;
 }, error => {
   return Promise.reject(error)
@@ -32,14 +37,31 @@ request.interceptors.request.use(config => {
 request.interceptors.response.use(response => {
   return response;
 }, error => {
-  if (error.request.status === 403) {
-    persistor.purge()
-    .then(() => {
-      window.location.href = "/"
-      alert("로그인 시간이 만료되었습니다.")
-    })
+  if (!error.response) {
+    return {
+      data: undefined,
+      code: "NetWorkError",
+      describe: "NetWorkError"
+    }
+  } else {
+    if (error.code === "ERR_NETWORK") {
+      return {
+        data: undefined,
+        code: "AxiosError",
+        describe: "AxiosError"
+      }
+    }
+  
+    if (error.request.status === 403) {
+      persistor.purge()
+      .then(() => {
+        window.location.href = "/"
+        alert("로그인 시간이 만료되었습니다.")
+      })
+    } 
+
+    return error;
   }
-  return error;
 })
 
 export default request

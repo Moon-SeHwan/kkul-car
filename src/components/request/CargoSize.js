@@ -75,9 +75,8 @@ const CargoSize = ({ inputRef }) => {
         이전 단계로 이동 시 입력하신 값들이 초기화 됩니다.
       </div>
       <div className="btnBox">
+        <button className="btn off" onClick={() => handlePrevClick()}>이전</button>
         <button className="btn on" onClick={() => handleNextClick()}>등록</button>
-        <button className="btn off" onClick={() => handlePrevClick()}>이전으로</button>
-        <button className="btn bdGray" onClick={() => handleNextClick()}>다음으로</button>
       </div>
     </div>
   )

@@ -321,7 +321,7 @@ select::-ms-expand {display: none;}
 .modal > section > footer.btnBox .btn{border-radius:6px; min-width:100px; height:45px; font-size:15px; font-weight:500;}
 .modal > section > footer.btnBox .btn.on{background-color:#fe8b2d; color:#fff; margin-right:3px;}
 .modal > section > footer.btnBox .btn.off{background-color:#fff; border:1px solid #a9a9ab; color:#666; margin-left:3px;}
-.modal.openModal { display: flex; align-items: center; /* 팝업이 열릴때 스르륵 열리는 효과 */animation: modal-bg-show 0.3s; } 
+.modal.openModal { display: flex; align-items: center; /* 팝업이 열릴때 스르륵 열리는 효과 */animation: modal-bg-show 0.3s; }
 @keyframes modal-show { 
  from { opacity: 0; margin-top: -50px; } 
  to { opacity: 1; margin-top: 0; } 
@@ -330,3 +330,8 @@ select::-ms-expand {display: none;}
  from { opacity: 0; } 
  to { opacity: 1; } 
 }
+
+/* 운송비 모달 */
+.modal > section > main .inBox{display: flex; overflow:hidden; padding:20px; max-height:650px; overflow-y:auto;}
+.modal > section > main .inBox input{letter-spacing: 0px; flex: 1 0 0;}
+.modal > section > main .btn.plus, .modal > section > main .btn.minus{background-color:#fff; background-size:85px; border:1px solid #bbb; height:45px;  width:45px; margin-left:5px;}

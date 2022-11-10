@@ -33,7 +33,9 @@ const LoadUnload = ({ inputRef }) => {
 
     getCommonCodeByType(codeType)
     .then(res => {
-      setList(() => [ prefix, ...res.data ])
+      setList(() => {
+        if (res.data) return [ prefix, ...res.data ]
+      })
     })
     .then(() => {
       setLoad({
@@ -89,7 +91,7 @@ const LoadUnload = ({ inputRef }) => {
         <p className="inTit">상차방법</p>
         <select className="sel a1 mgb15" value={load.value} onChange={handleLoadChange}>
           {
-            list.map(obj => (
+            list?.map(obj => (
               <option key={`L_${obj.cdid}`} value={obj.cdid}>{obj.codeName}</option>
             ))
           }
@@ -98,20 +100,19 @@ const LoadUnload = ({ inputRef }) => {
         <p className="inTit">하차방법</p>
         <select className="sel a1" value={unload.value} onChange={handleUnLoadChange}>
           {
-            list.map(obj => (
+            list?.map(obj => (
               <option key={`U_${obj.cdid}`} value={obj.cdid}>{obj.codeName}</option>
             ))
           }
         </select>
       </div>
       <div className="txtBox">
-        입력하신 사이즈를 등록하시겠습니까?<br />
+        선택하신 상/하차 방법을 등록하시겠습니까?<br />
         이전 단계로 이동 시 입력하신 값들이 초기화 됩니다.
       </div>	
       <div className="btnBox">
+        <button className="btn off" onClick={() => handlePrevClick()}>이전</button>
         <button className="btn on" onClick={() => handleNextClick()}>등록</button>
-        <button className="btn off" onClick={() => handlePrevClick()}>이전으로</button>
-        <button className="btn bdGray" onClick={() => handleNextClick()}>다음으로</button>
       </div>
     </div>
   )

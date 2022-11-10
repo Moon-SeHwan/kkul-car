@@ -36,7 +36,7 @@
 .requestBox div .btnBox{margin-top:30px; text-align:center;}
 .requestBox div .btnBox .btn{border-radius:6px; min-width:100px; height:45px; font-size:15px; font-weight:500;}
 .requestBox div .btnBox .btn.on{background-color:#fe8b2d; color:#fff; margin-right:3px;}
-.requestBox div .btnBox .btn.off{background-color:#fff; border:1px solid #a9a9ab; color:#666; margin-left:3px;}
+.requestBox div .btnBox .btn.off{background-color:#fff; border:1px solid #a9a9ab; color:#666; margin-right:3px;}
 .slick-slide img { display: inline !important; }
 
 /* 로그인 */
