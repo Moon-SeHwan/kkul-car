@@ -65,5 +65,6 @@ return dateString.substring(0,4) + '-' + dateString.substring(4,6) + '-' +  date
 
 //금액 콤마 찍기
 export const formatFare = (fare) => {
+  if (fare === null || fare === undefined) return ""
   return fare.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
 }

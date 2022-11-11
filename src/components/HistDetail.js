@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ImageViewer from "react-simple-image-viewer";
-// import Modal from "react-modal";
+
 import Header from "src/common/Header";
 import Footer from "src/common/Footer";
 import Modal from "src/common/Modal";
@@ -9,13 +9,7 @@ import Modal from "src/common/Modal";
 import { useAppDispatch } from 'src/store';
 import modalSlice from "src/slice/modal";
 
-import { formatDateTimeToKorea } from "src/utils/dateUtil";
 import { formatFare } from "src/utils/commonUtils";
-import { 
-  getRequestDetail, 
-  getRequestHist, 
-  updateAddFare
-} from "src/api/cargo";
 
 import "src/css/main.css";
 import "src/css/style.css";
@@ -24,57 +18,52 @@ import "src/css/popup.css";
 
 const HistDetail = () => {
   const fareRef = useRef()
-  const [cargoInfo, setCargoInfo] = useState([])
-  const [truckInfo, setTruckInfo] = useState([])
-  const [cargoImages, setCargoImages] = useState([])
-  const [loadImages, setLoadImages] = useState([])
-  const [unloadImages, setUnloadImages] = useState([])
-  const [currentImage, setCurrentImage] = useState(0)
+  const [cargoInfo, setCargoInfo] = useState({})
   const [isLoadImageOpen, setIsLoadImageOpen] = useState(false)
   const [isUnloadImageOpen, setIsUnloadImageOpen] = useState(false)
+
+  const [transitFare, setTransitFare] = useState(0)
   const [additionalFare, setAdditionalFare] = useState(0)
+  const [totalFare, setTotalFare] = useState(0)
 
   const location = useLocation()
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
 
-  const reqId = location.state.reqId
+  useEffect(() => {
+    setTransitFare(10000)
+    setAdditionalFare(25000)
+    setTotalFare(transitFare + additionalFare)
+  }, [])
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [location.pathname])
 
-  const addFare = () =>{
-    const param = {
-      reqId: reqId,
-      additionalFare: additionalFare
+  const addFare = () => {
+    if (window.confirm("운송비를 수정하시겠습니까?")) {
+      const additionalFare = fareRef.current.value - cargoInfo.transitFare
+      
+      setAdditionalFare(additionalFare)
+
+      dispatch(
+        modalSlice.actions.CLOSE()
+      )
     }
-
-    updateAddFare(param)
-    .then(res => {
-      alert(res.data)
-    })
-
-    navigate(0)
   }
 
   const openLoadImage = useCallback(index => {
-    setCurrentImage(index)
     setIsLoadImageOpen(true)
   }, [])
 
   const closeLoadImage = () => {
-    setCurrentImage(0)
     setIsLoadImageOpen(false)
   }
 
   const openUnloadImage = useCallback(index => {
-    setCurrentImage(index)
     setIsUnloadImageOpen(true)
   }, [])
 
   const closeUnloadImage = () => {
-    setCurrentImage(0)
     setIsUnloadImageOpen(false)
   }
 
@@ -84,13 +73,13 @@ const HistDetail = () => {
         d: "fare",
         header: "운송비 추가",
         onBtnHidden: false,
-        onBtnFunc: () => addFare,
+        onBtnFunc: () => addFare(),
         components: 
         <>
           <div className="inBox">
-            <input ref={fareRef} type="text" value={35000} readOnly />
-            <button className="btn plus" onClick={handlePlusClick}>+</button>
-            <button className="btn minus" onClick={handleMinusClick}>-</button>
+            <input ref={fareRef} type="text" value={transitFare + additionalFare} readOnly />
+            <button className="btn plus" onClick={() => handlePlusClick()}>+</button>
+            <button className="btn minus" onClick={() => handleMinusClick()}>-</button>
           </div>
         </>
       })
@@ -99,24 +88,13 @@ const HistDetail = () => {
 
   const handlePlusClick = () => {
     fareRef.current.value = parseInt(fareRef.current.value) + 5000
-
-    setCargoInfo({
-      ...cargoInfo,
-      totalFare: cargoInfo.totalFare + 5000
-    })
   }
 
   const handleMinusClick = () => {
-    const total = cargoInfo.transitFare + cargoInfo.additionalFare
-    console.log(cargoInfo.totalFare)
-    console.log(total)
-    if(cargoInfo.totalFare >= total){
+    const total = totalFare
+    
+    if(fareRef.current.value - 5000 >= total){
       fareRef.current.value = parseInt(fareRef.current.value) - 5000
-      
-      setCargoInfo({
-        ...cargoInfo,
-        totalFare: cargoInfo.totalFare - 5000
-      })
     } else {
       alert('처음 책정된 운송비보다 작을 수 없습니다.')
     }
@@ -221,23 +199,9 @@ const HistDetail = () => {
 
           <div className="transitMoney">
             <p className="tit">운송비용</p>
-            <span className="money"><em>{formatFare(35000)}</em>원</span>
+            <span className="money"><em>{formatFare(transitFare + additionalFare)}</em>원</span>
             <button className="btn up" onClick={() => openModal()}>운송비 UP</button>
           </div>
-          
-          {/* <Modal
-            className="modalContainer"
-            isOpen={mdOpen}
-            onRequestClose={closeModal}
-          >
-            <input type="text" value={totalFare} onChange={onChangeFare}/>
-            <div className="btnBox">
-              <button className="btn" onClick={handlePlusClick}>+</button>
-              <button className="btn" onClick={handleMinusClick}>-</button>
-              <button className="btn" onClick={addFare}>적용</button>
-              <button className="btn" onClick={closeModal}>close</button>
-            </div>
-          </Modal> */}
           
           <div className="driver_info">
             <ul>
@@ -246,7 +210,7 @@ const HistDetail = () => {
             </ul>
           </div>
         </div>
-        <Modal />
+        <Modal onFunc={() => addFare()} />
       </section>
       <Footer/>
     </div>
@@ -254,4 +218,3 @@ const HistDetail = () => {
 }
 
 export default HistDetail;
-// Modal.setAppElement('#root')

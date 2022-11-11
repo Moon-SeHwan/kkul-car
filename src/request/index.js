@@ -26,7 +26,6 @@ request.interceptors.request.use(config => {
       "Authorization": `Bearer ${TOKEN.accessToken}`
     },
     validateStatus: status => status < 500,
-    withCredentials: true,
   }
   
   return config;

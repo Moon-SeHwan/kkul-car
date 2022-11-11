@@ -5,7 +5,7 @@ import modalSlice from "src/slice/modal";
 
 import CloseIcon from '@mui/icons-material/Close';
 
-const Modal = () => {
+const Modal = ({ onFunc }) => {
   const modal = useSelector((state) => state.modal)
   const dispatch = useAppDispatch()
 
@@ -28,7 +28,7 @@ const Modal = () => {
             {modal.components}
           </main>
           <footer className="btnBox">
-            <button className="btn on" hidden={modal.onBtnHidden} onClick={() => modal.onBtnFunc}>적용</button>
+            <button className="btn on" hidden={modal.onBtnHidden} onClick={onFunc}>적용</button>
             <button className="btn off" onClick={() => onClose()}>취소</button>
           </footer>
         </section>

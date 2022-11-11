@@ -11,7 +11,7 @@ const History = () => {
 	const navigate = useNavigate()
 	const { pathname } = useLocation()
 
-	const toRequestDetail = (params) => {
+	const toRequestDetail = () => {
 		navigate('/HistDetail', 
 		{
 			state: {

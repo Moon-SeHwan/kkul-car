@@ -120,14 +120,12 @@ const RequestBox = () => {
       directDistance: cargo.directDistance,
       realDistance: cargo.realDistance,
     }
-    
-    console.log(request)
 
     setRequest(request)
     .then(() => {
-      // dispatch(
-      //   cargoSlice.actions.REQUEST_COMPLETE({})
-      // )
+      dispatch(
+        cargoSlice.actions.REQUEST_COMPLETE({})
+      )
 
       setRequestClassName("requestBox")
       sliderRef.current.slickGoTo(0)

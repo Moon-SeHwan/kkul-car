@@ -19,7 +19,6 @@ const KaKaoLogin = () => {
     
     getKaKaoAccessToken(CODE)
     .then(res => {
-      console.log(res)
       const SOCIAL = JSON.parse(res.data.socialToken)
       const PROFILE = res.data.profile
 
