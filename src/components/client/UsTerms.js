@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import Header from "src/common/Header";
-import Footer from "src/common/Footer";
 import {
   searchTerms
 } from "src/api/terms/index";
@@ -22,7 +20,7 @@ const UsTerms = () => {
     }
     searchTerms(param)
     .then(res => {
-      setUseTerms(res.data[0]?.contents)
+      setUseTerms(res.data?.contents)
     })
 
   }, [])
@@ -32,19 +30,15 @@ const UsTerms = () => {
   }, [pathname])
   
   return(
-    <div id ="contents">
-      <Header/>
-      <section className="contentSection" id="contentSection">
-        <h2>이용약관</h2>
-        <div className="termsBox">
-          <div className="txtBox">
-            <div className="temsTxt" dangerouslySetInnerHTML={{__html: useTerms}}>
-            </div>
+    <section className="contentSection">
+      <h2>이용약관</h2>
+      <div className="termsBox">
+        <div className="txtBox">
+          <div className="temsTxt" dangerouslySetInnerHTML={{__html: useTerms}}>
           </div>
         </div>
-      </section>
-      <Footer/>
-    </div>
+      </div>
+    </section>
   )
 }
 

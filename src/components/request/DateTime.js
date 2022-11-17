@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useRef } from "react";
+import React, { forwardRef, useState } from "react";
 import { useSelector } from 'react-redux';
 
 import DatePicker from "react-datepicker";
@@ -7,7 +7,14 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { useAppDispatch } from 'src/store';
 import cargoSlice from "src/slice/cargo";
-import { getToday, formatHourAndMinutes, formatDate, formatStringToDateTime } from "src/utils/dateUtil";
+import { 
+  getToday, 
+  formatHourAndMinutes, 
+  formatDate, 
+  formatStringToDateTime, 
+  formatDateToDay, 
+  compareDateAndDate,
+} from "src/utils/dateUtil";
 
 const hour = [
   "00", "01", "02", "03", 
@@ -23,17 +30,15 @@ const min = [
 ]
 
 const CustomDepartDatePicker = forwardRef(({ value, onClick, onChange }, ref) => {
-
+  
   return (
-    <div className="dateBox" ref={ref}>
+    <div className="dateBox">
       <input 
         className="amin mgr5"
         type="text"
         value={value}
-        ref={ref}
+        readOnly
         onChange={(e) => onChange(e.target.value)}
-        onClick={onClick} 
-        placeholder="도착일" 
         inputMode="none"/>
       <button className="btn date" onClick={() => onClick()}></button>
     </div>
@@ -41,17 +46,15 @@ const CustomDepartDatePicker = forwardRef(({ value, onClick, onChange }, ref) =>
 })
 
 const CustomArrivalDatePicker = forwardRef(({ value, onClick, onChange }, ref) => {
-
+  
   return (
-    <div className="dateBox" ref={ref}>
+    <div className="dateBox">
       <input 
         className="pmin mgr5"
         type="text"
         value={value}
-        ref={ref}
+        readOnly
         onChange={(e) => onChange(e.target.value)}
-        onClick={onClick} 
-        placeholder="도착일" 
         inputMode="none"/>
       <button className="btn date" onClick={() => onClick()}></button>
     </div>
@@ -62,8 +65,6 @@ const DateTime = ({ inputRef }) => {
   const cargo = useSelector((state) => state.cargo)
   const dispatch = useAppDispatch()
 
-  const departRef = useRef()
-  const arrivalRef = useRef()
   const [departDate, setDepartDate] = useState(cargo.departDatetimes === "" ? new Date() : new Date(formatStringToDateTime(cargo.departDatetimes)))
   const [departTime, setDepartTime] = useState(formatHourAndMinutes(cargo.departDatetimes) || { h: "01", m: "00" })
   const [arrivalDate, setArrivalDate] = useState(cargo.arrivalDatetimes === "" ? new Date() : new Date(formatStringToDateTime(cargo.arrivalDatetimes)))
@@ -86,10 +87,13 @@ const DateTime = ({ inputRef }) => {
   }
 
   const handleNextClick = () => {
+    const departDateTime = `${formatDate(departDate)} ${departTime.h}:${departTime.m}`
+    const arrivalDatetime = `${formatDate(arrivalDate)} ${arrivalTime.h}:${arrivalTime.m}`
+
     dispatch(
-      cargoSlice.actions.STEP5({
-        departDatetimes: `${formatDate(departDate)} ${departTime.h}:${departTime.m}`,
-        arrivalDatetimes: `${formatDate(arrivalDate)} ${arrivalTime.h}:${arrivalTime.m}`
+      cargoSlice.actions.STEP4({
+        departDatetimes: departDateTime,
+        arrivalDatetimes: arrivalDatetime
       })
     )
 
@@ -100,47 +104,32 @@ const DateTime = ({ inputRef }) => {
     inputRef.current.slickPrev()
   }
 
-  // 요일 반환
-  const getDayName = (date) => {
-    return date.toLocaleDateString('ko-KR', {
-      weekday: 'long',
-    }).substr(0, 1);
-  }
-  
-  // 날짜 비교시 년 월 일까지만 비교하게끔
-  const createDate = (date) => {
-    return new Date(new Date(date.getFullYear()
-      , date.getMonth()
-      , date.getDate()
-      , 0
-      , 0
-      , 0));
-  }
-
   return (
-    <div className="step5">
-      <div className="stepBox"><span className="badge">STEP 5</span> 출발/도착 시간 입력</div>
+    <div className="step4">
+      <div className="stepBox"><span className="badge">STEP 4</span> 출발/도착 시간 입력</div>
       <div className="inBox">
-        <p className="inTit">출발시각</p>
-        <div className="amBox ">
+        <p className="inTit">출발시간</p>
+        <div className="amBox">
           <DatePicker
+            disabledKeyboardNavigation
+            calendarClassName="top-datepicker"
             selected={departDate}
             dateFormat="yyyy년 MM월 dd일"
             dateFormatCalendar="yyyy년 MM월"
             showPopperArrow={false}
             onChange={(date) => handleDepartChange(date)}
-            minDate={new Date()}
+            minDate={getToday()}
             locale={ko}
             popperPlacement="bottom"
-            customInput={<CustomDepartDatePicker inputValue={departDate} />}
+            customInput={<CustomDepartDatePicker />}
             dayClassName={date =>
-              getDayName(createDate(date)) === '토' ? "saturday"
+              formatDateToDay(date) === "토" ? "saturday"
             :
-              getDayName(createDate(date)) === '일' ? "sunday" : undefined
+              formatDateToDay(date) === "일" ? "sunday" : undefined
             }
           />
           <div className="timeBox">
-            <select className="sel a1" ref={departRef} value={departTime.h} onChange={handleDepartTimeChange("h")}>
+            <select className="sel a1" value={departTime.h} onChange={handleDepartTimeChange("h")}>
               {
                 hour.map(h => (
                   <option key={h} value={h}>{h}</option> 
@@ -156,9 +145,11 @@ const DateTime = ({ inputRef }) => {
             </select> 분
           </div>
         </div>
-        <p className="inTit">도착시각</p>
+        <p className="inTit">도착시간</p>
         <div className="pmBox">
           <DatePicker 
+            disabledKeyboardNavigation
+            calendarClassName="bottom-datepicker"
             selected={arrivalDate}
             dateFormat="yyyy년 MM월 dd일"
             dateFormatCalendar="yyyy년 MM월"
@@ -167,19 +158,15 @@ const DateTime = ({ inputRef }) => {
             locale={ko}
             popperPlacement="top"
             minDate={getToday()}
-            customInput={<CustomArrivalDatePicker inputValue={arrivalDate} />}
+            customInput={<CustomArrivalDatePicker />}
             dayClassName={date =>
-              getDayName(createDate(date)) === '토' ? "saturday"
+              formatDateToDay(date) === "토" ? "saturday"
             :
-              getDayName(createDate(date)) === '일' ? "sunday" : undefined
+              formatDateToDay(date) === "일" ? "sunday" : undefined
             }
           />
           <div className="timeBox">
-            <select 
-              ref={arrivalRef}
-              className="sel a1" 
-              value={arrivalTime.h}
-              onChange={handleArrivalTimeChange("h")}>
+            <select className="sel a1" value={arrivalTime.h} onChange={handleArrivalTimeChange("h")}>
               {
                 hour.map(h => (
                   <option key={h} value={h}>{h}</option> 

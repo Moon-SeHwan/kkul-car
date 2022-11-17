@@ -45,29 +45,29 @@ const cargoSlice = createSlice({
     REQUEST_COMPLETE() {
       return initialState
     },
-    STEP2(state, action) {
-      state.step = 2
+    STEP1(state, action) {
+      state.step = 1
       state.imageList = [...action.payload.image]
     },
-    STEP3(state, action) {
-      state.step = 3
+    STEP2(state, action) {
+      state.step = 2
       state.cargoName = action.payload.cargoName
       state.truckType = action.payload.truckType
     },
-    STEP4(state, action) {
-      state.step = 4
+    STEP3(state, action) {
+      state.step = 3
       state.cweight = action.payload.cweight
       state.cheight = action.payload.cheight
       state.cwidth = action.payload.cwidth
       state.cverticalreal = action.payload.cverticalreal
     },
-    STEP5(state, action) {
-      state.step = 5
+    STEP4(state, action) {
+      state.step = 4
       state.departDatetimes = action.payload.departDatetimes
       state.arrivalDatetimes = action.payload.arrivalDatetimes
     },
-    STEP6(state, action) {
-      state.step = 6
+    STEP5(state, action) {
+      state.step = 5
       state.departAddrSt = action.payload.departAddrSt
       state.departAddrSt2 = action.payload.departAddrSt2
       state.departAddrOld = action.payload.departAddrOld
@@ -79,17 +79,16 @@ const cargoSlice = createSlice({
       state.arrivalLatitude = action.payload.arrivalLatitude
       state.arrivalLongitude = action.payload.arrivalLongitude
     },
-    STEP7(state, action) {
-      state.step = 7
+    STEP6(state, action) {
+      state.step = 6
       state.loadMethod = { ...action.payload.loadMethod }
       state.unloadMethod = { ...action.payload.unloadMethod }
     },
-    STEP8(state, action) {
-      state.step = 8
+    STEP7(state, action) {
+      state.step = 7
       state.requestItems = action.payload.requestItems
     },
-    STEP9(state, action) {
-      state.step = 9
+    STEP_FARE(state, action) {
       state.transitFare = action.payload.transitFare
       state.additionalFare = action.payload.additionalFare
       state.directDistance = action.payload.directDistance

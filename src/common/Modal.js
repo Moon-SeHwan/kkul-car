@@ -5,7 +5,7 @@ import modalSlice from "src/slice/modal";
 
 import CloseIcon from '@mui/icons-material/Close';
 
-const Modal = ({ onFunc }) => {
+const Modal = ({ children }) => {
   const modal = useSelector((state) => state.modal)
   const dispatch = useAppDispatch()
 
@@ -16,24 +16,25 @@ const Modal = ({ onFunc }) => {
   }
 
   return (
-    // 모달이 열릴때 openModal 클래스가 생성된다.
-    <div className={modal.isOpen ? 'modal openModal' : 'modal'}>
+    <>
       {modal.isOpen ? (
+      <div className="modal openModal">
         <section>
           <header>
             {modal.header}
             <button className="btn close" onClick={() => onClose()}><CloseIcon /></button>
           </header>
           <main>
-            {modal.components}
+            {modal.components || children}
           </main>
           <footer className="btnBox">
-            <button className="btn on" hidden={modal.onBtnHidden} onClick={onFunc}>적용</button>
+            <button className="btn on" style={{ display: modal.onBtnHidden ? "none" : "" }} onClick={modal.onBtnFunc}>적용</button>
             <button className="btn off" onClick={() => onClose()}>취소</button>
           </footer>
         </section>
+      </div>
       ) : null}
-    </div>
+    </>
   )
 }
 

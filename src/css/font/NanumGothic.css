@@ -2,7 +2,7 @@
   font-family: 'Nanum Gothic';
   font-style: normal;
   font-weight: 400;
-  src: local('NanumGothic'), url('./nanum/NanumGothic.woff2') format('woff2');
+  src: url('./nanum/NanumGothic.woff2') format('woff2'), local('NanumGothic');
   unicode-range: U+3131-318E, U+3200-321C, U+3260-327B, U+AC00-D7AF;
 }
 
@@ -10,7 +10,7 @@
   font-family: 'Nanum Gothic';
   font-style: normal;
   font-weight: 700;
-  src: local('NanumGothic Bold'), local('NanumGothic-Bold'), url('./nanum/NanumGothic-Bold.woff2') format('woff2');
+  src: url('./nanum/NanumGothic-Bold.woff2') format('woff2'), local('NanumGothic Bold'), local('NanumGothic-Bold'), ;
   unicode-range: U+3131-318E, U+3200-321C, U+3260-327B, U+AC00-D7AF;
 }
 
@@ -18,6 +18,6 @@
   font-family: 'Nanum Gothic';
   font-style: normal;
   font-weight: 800;
-  src: local('NanumGothic ExtraBold'), local('NanumGothic-ExtraBold'), url('./nanum/NanumGothic-ExtraBold.woff2') format('woff2');
+  src: url('./nanum/NanumGothic-ExtraBold.woff2') format('woff2'), local('NanumGothic ExtraBold'), local('NanumGothic-ExtraBold');
   unicode-range: U+3131-318E, U+3200-321C, U+3260-327B, U+AC00-D7AF;
 }

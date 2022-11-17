@@ -49,3 +49,20 @@ export const formatDateToString = (dateString) => {
 
   return dateString
 }
+
+export const formatDateToDay = (dateString) => {
+  const day = ["일", "월", "화", "수", "목", "금", "토"]
+  return day[moment(dateString).day()]
+}
+
+// STEP3 출발시간 vs 도착시간 비교 위한 함수
+export const compareDateAndDate = (depart, arrival) => {
+  if (depart === null || depart === undefined || depart.trim() === "") return false
+  if (arrival === null || arrival === undefined || arrival.trim() === "") return false
+
+  depart = moment(depart, "YYYY-MM-DD HH:mm")
+  arrival = moment(arrival, "YYYY-MM-DD HH:mm")
+
+  if (depart.diff(arrival) / 600000 < 0) return true
+  else return false
+}

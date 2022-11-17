@@ -26,7 +26,7 @@ export function searchAddress(query) {
 
 export function getRequestListByStatus(param) {
   return request({
-    url: `${BASE_URL}/requestByStat?ownerUid=${param.ownerUid}&status=${param.status}`,
+    url: `${BASE_URL}/request/status/${param.ownerUid}?status=${param.status}`,
     method: "get"
   })
 }
@@ -40,7 +40,7 @@ export function getRequestDetail(reqId) {
 
 export function getRequestHist(reqId) {
   return request({
-    url: `${BASE_URL}/request/hist/${reqId}`,
+    url: `${BASE_URL}/request/history/${reqId}`,
     method: "get"
   })
 }
@@ -53,20 +53,16 @@ export function getRequestFare(dto) {
   })
 }
 
-export function updateStatus(obj) {
+export function cancelRequest(reqId) {
   return request({
-    url: `${BASE_URL}/status`,
-    method: "post",
-    params: {
-      status:obj.status,
-      reqId: obj.reqId
-    }
+    url: `${BASE_URL}/cancel/${reqId}`,
+    method: "put",
   })
 }
 
-export function updateAddFare(obj) {
+export function updateAdditionalFare(obj) {
   return request({
-    url: `${BASE_URL}/request/addFare`,
+    url: `${BASE_URL}/request/additional-fare`,
     method: "post",
     data: obj
   })

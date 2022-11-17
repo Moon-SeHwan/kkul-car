@@ -14,18 +14,18 @@ if (HOST_NAME === "localhost" || HOST_NAME === "127.0.0.1") {
 
 const request = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 5000
+  timeout: 5000,
+  headers: { "Cache-Control": "no-cache" }
 });
 
 request.interceptors.request.use(config => {
-  const TOKEN = store.getState().token;
+  const TOKEN = store.getState().token
 
   config = {
     ...config,
     headers: {
       "Authorization": `Bearer ${TOKEN.accessToken}`
     },
-    validateStatus: status => status < 500,
   }
   
   return config;
@@ -34,8 +34,16 @@ request.interceptors.request.use(config => {
 })
 
 request.interceptors.response.use(response => {
+  if (response.status === 403) {
+    return {
+      data: undefined,
+      code: "JwtExpiredException",
+      describe: "JwtExpiredException"
+    }
+  }
   return response;
 }, error => {
+  console.log(error)
   if (!error.response) {
     return {
       data: undefined,

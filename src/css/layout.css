@@ -6,7 +6,7 @@
 =============================================*/
 /* 폰트 설정 */
 @import "./font.css";
-*{font-family: "Noto Sans KR", "Noto Sans Korean" !important; }
+*{font-family: "Noto Sans", "Noto Sans Korean" !important; }
 
 body{background-color:#f0f1f5;}
 /*======/   END 공통   /======*/
@@ -16,12 +16,13 @@ body{background-color:#f0f1f5;}
 * CONTENT
 =============================================*/
 .headerSection{position:fixed; z-index:99; top:0px; width:100%; height:60px; background-color:#fff; box-shadow:0px 5px 5px 0px rgb(0 0 0 / 7%); padding:17px 20px; display:flex; justify-content:space-between;}
-.headerSection .logo{width:95px;}
-
+.headerSection .logo{width:95px; }
+.headerSection .logo img{width:95px; height:31px;}
 
 .footerSection{background-color:#393a3d; border-top:1px solid #8e8f93; padding:25px 20px;}
 .footerBox{display: flex;justify-content: center;gap: 15px 20px;flex-wrap: wrap;}
-.footerBox .ftLogo{width:40px;}
+.footerBox .ftLogo{width:40px; height:52px;}
+.footerBox .ftLogo img{width:40px; height:52px;}
 .footerBox .ft-info{font-size:12px; color:#fff;}
 .footerBox .ft-copy{margin-top:15px;}
 /*======/   END CONTENT   /======*/
@@ -276,7 +277,7 @@ textarea.inForm::placeholder, input.inForm::placeholder, input[type].inForm::pla
 
 /* 인풋 박스 */
 input[type='text'], input[type='time']{display:inline-block; width:100%;height:47px;padding:6px 10px;font-size:14px;line-height:1.42857143;color:#666;background-color:#fff;background-image:none;border:1px solid #e5e5e5;border-radius: 6px; box-sizing:border-box; vertical-align:middle; outline:none; letter-spacing:-1px; transition:all 0.3s ease-out;}
-input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {-webkit-appearance:none;  margin:0;}
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {-webkit-appearence:none;  margin:0;}
 input:focus, select:focus, option:focus, textarea:focus{outline: none; border:1px solid #fe8b2d;}
 label{vertical-align:middle;}
 
@@ -287,7 +288,6 @@ label{vertical-align:middle;}
 input:-moz-placeholder{color:#c0c0c0}
 
 /* 라디오 박스 */
-.radioBox{}
 .radioBox input[type='radio']{position:absolute; clip: rect(0,0,0,0); pointer-events:none;}
 .radioBox input[type='radio'] + label {padding-left:28px; height:24px;display:inline-block;line-height:24px;background-repeat:no-repeat;background-position: 0 0;font-size:12px; vertical-align:middle; cursor:pointer; background-size:24px;}
 .radioBox input[type='radio']:checked + label {background-position:0px -27px;}
@@ -325,7 +325,7 @@ select::-ms-expand {display: none;}
 @keyframes modal-show { 
  from { opacity: 0; margin-top: -50px; } 
  to { opacity: 1; margin-top: 0; } 
- }
+}
 @keyframes modal-bg-show { 
  from { opacity: 0; } 
  to { opacity: 1; } 

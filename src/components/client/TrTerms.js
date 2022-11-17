@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import Header from "src/common/Header";
-import Footer from "src/common/Footer";
 import {
   searchTerms
 } from "src/api/terms/index";
@@ -22,7 +20,7 @@ const TrTerms = () => {
     }
     searchTerms(param)
     .then(res => {
-      setTransTerms(res.data[0]?.contents)
+      setTransTerms(res.data?.contents)
     })
     
   }, [])
@@ -32,20 +30,16 @@ const TrTerms = () => {
   }, [pathname])
 
   return(
-    <div id ="contents">
-      <Header/>
-      <section className="contentSection" id="contentSection">
-        <h2>운송약관</h2>
-        <div className="termsBox">
-          <div className="txtBox">
-            <div className="temsTxt">
-              {transTerms}
-            </div>
+    <section className="contentSection">
+      <h2>운송약관</h2>
+      <div className="termsBox">
+        <div className="txtBox">
+          <div className="temsTxt">
+            {transTerms}
           </div>
         </div>
-      </section>
-      <Footer/>
-    </div>
+      </div>
+    </section>
   )
 }
 

@@ -1,5 +1,15 @@
 import request from "src/request";
 
+const HOST_NAME = window.location.hostname
+
+let API_BASE_URL = "";
+
+if (HOST_NAME === "localhost" || HOST_NAME === "127.0.0.1") {
+  API_BASE_URL = process.env.REACT_APP_BASE_URL_LOCAL
+} else if (HOST_NAME === "192.168.0.113") {
+  API_BASE_URL = process.env.REACT_APP_BASE_URL_DEV
+}
+
 /**
  * 
  * @param {*} start 출발지 "lon(경도), lat(위도)"
@@ -10,7 +20,7 @@ import request from "src/request";
 export const driving = async (start, goal, options) => {
 
   const res = await request({
-    url: `${process.env.REACT_APP_BASE_URL_LOCAL}/api/naver/driving?start=${start}&goal=${goal}&option=${options}`,
+    url: `${API_BASE_URL}/api/naver/driving?start=${start}&goal=${goal}&option=${options}`,
     method: "get"
   })
 
@@ -20,17 +30,21 @@ export const driving = async (start, goal, options) => {
 }
 
 export const geocoding = async (query) => {
+  if (query.includes("지하")) {
+    query = query.replace("지하 ", "")
+  }
+
   const res = await request({
-    url: `${process.env.REACT_APP_BASE_URL_LOCAL}/api/naver/geocode?query=${query}`,
+    url: `${API_BASE_URL}/api/naver/geocode?query=${query}`,
     method: "get"
   })
 
   const data = res.data
   
   if (data.addresses.length > 1) {
-    console.log(`${query}에는 여러개의 주소가 존재합니다.`);
+    console.log(`${query}에는 여러개의 주소가 존재합니다.`)
   } else if (data.addresses.length === 0) {
-    console.log(`${query}에 해당되는 좌표가 없어요.`);
+    console.log(`${query}에 해당되는 좌표가 없어요.`)
     return [-1, -1];
   }
 

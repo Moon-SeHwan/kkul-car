@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector } from 'react-redux';
 
 import DaumPostcode from "react-daum-postcode";
@@ -11,7 +11,6 @@ import { geocoding } from "src/api/openapi";
 
 const Address = ({ inputRef }) => {
   const cargo = useSelector((state) => state.cargo)
-  const modal = useSelector((state) => state.modal)
   const dispatch = useAppDispatch()
 
   const [departAddr, setDepartAddr] = useState({
@@ -29,59 +28,39 @@ const Address = ({ inputRef }) => {
     lon: cargo.arrivalLongitude,
   })
 
-  useEffect(() => {
-    if (modal.data !== null) {
+  const onComplete = (data, d) => {
+    dispatch(
+      modalSlice.actions.CLOSE()
+    )
 
-      if (modal.d === "depart") {
-        handleDepartSearchComplete(modal.data)
-      } else if (modal.d === "arrival") {
-        handleArrivalSearchComplete(modal.data)
-      }
-
-      dispatch(
-        modalSlice.actions.CLOSE()
-      )
-    }
-  }, [modal.data, modal.d, dispatch])
-
-  const handleDepartSearchComplete = (data) => {
-    setDepartAddr({
-      st: data.road,
-      st2: data.building,
-      old: data.jibun,
-      lat: data.lat,
-      lon: data.lon,
-    })
-  }
-
-  const handleArrivalSearchComplete = (data) => {
-    setArrivalAddr({
-      st: data.road,
-      st2: data.building,
-      old: data.jibun,
-      lat: data.lat,
-      lon: data.lon,
-    })
-  }
-
-  const onComplete = (data) => {
     geocoding(data.roadAddress)
     .then(res => {
-      dispatch(
-        modalSlice.actions.COMPLETE({
-          data: res
+      if (d === "depart") {
+        setDepartAddr({
+          st: res.road,
+          st2: res.building,
+          old: res.jibun,
+          lat: res.lat,
+          lon: res.lon,
         })
-      )
+      } else if (d === "arrival") {
+        setArrivalAddr({
+          st: res.road,
+          st2: res.building,
+          old: res.jibun,
+          lat: res.lat,
+          lon: res.lon,
+        })
+      }
     })
   }
 
   const handleDepartSearchActive = () => {
     dispatch(
       modalSlice.actions.SHOW({
-        d: "depart",
         header: "출발지 주소 찾기",
         onBtnHidden: true,
-        components: <DaumPostcode onComplete={onComplete} />
+        components: <DaumPostcode onComplete={(addr) => onComplete(addr, "depart")} />
       })
     )
   }
@@ -89,27 +68,17 @@ const Address = ({ inputRef }) => {
   const handleArrivalSearchActive = () => {
     dispatch(
       modalSlice.actions.SHOW({
-        d: "arrival",
         header: "도착지 주소 찾기",
         onBtnHidden: true,
-        components: <DaumPostcode onComplete={onComplete} />
+        components: <DaumPostcode onComplete={(addr) => onComplete(addr, "arrival")} />
       })
     )
   }
 
   const handleNextClick = () => {
-    // if (departAddr.st === "") {
-    //   alert("출발지 주소를 입력해주세요")
-    //   return
-    // }
-
-    // if (arrivalAddr.st === "") {
-    //   alert("도착지 주소를 입력해주세요")
-    //   return
-    // }
 
     dispatch(
-      cargoSlice.actions.STEP6({
+      cargoSlice.actions.STEP5({
         departAddrSt: departAddr.st,
         departAddrSt2: departAddr.st2,
         departAddrOld: departAddr.old,
@@ -130,21 +99,25 @@ const Address = ({ inputRef }) => {
     inputRef.current.slickPrev()
   }
 
-  const handleTest = (e) => {
-    setDepartAddr({...departAddr, st2: e.target.value })
+  const handleDepartSt2Change = (e) => {
+    setDepartAddr({ ...departAddr, st2: e.target.value })
+  }
+
+  const handleArrivalSt2Change = (e) => {
+    setArrivalAddr({ ...arrivalAddr, st2: e.target.value })
   }
 
   return (
-    <div className="step6">
+    <div className="step5">
       <div className="stepBox"><span className="badge">STEP 6</span> 출발/도착지 입력</div>
       <div className="inBox">
         <div className="startBox">
           <p className="inTit">출발지 주소</p>
-          <p className="adrBox"><input type="text" readOnly placeholder="출발지 주소" value={departAddr.st} className="" onClick={() => handleDepartSearchActive()} />
+          <p className="adrBox"><input type="text" readOnly placeholder="출발지 주소" value={departAddr.st} onClick={() => handleDepartSearchActive()} />
             <button className="btn adr" onClick={() => handleDepartSearchActive()}></button>
           </p>
           <p className="inTit2">상세 주소</p>
-          <p className="adrDetail"><input type="text" placeholder="상세주소" value={departAddr.st2} className="" onChange={handleTest} /></p>
+          <p className="adrDetail"><input type="text" placeholder="상세주소" value={departAddr.st2} onChange={handleDepartSt2Change} /></p>
           {/* <div className="phoneBox">
             <input type="text" placeholder="출발지 연락처" className="" />
             <button className="btn phon">변경</button>
@@ -152,11 +125,11 @@ const Address = ({ inputRef }) => {
         </div>
         <div className="arrivalBox">
           <p className="inTit">도착지 주소</p>
-          <p className="adrBox"><input type="text" readOnly placeholder="도착지 주소" value={arrivalAddr.st} className="" onClick={() => handleArrivalSearchActive()} />
+          <p className="adrBox"><input type="text" readOnly placeholder="도착지 주소" value={arrivalAddr.st} onClick={() => handleArrivalSearchActive()} />
             <button className="btn adr" onClick={() => handleArrivalSearchActive()}></button>
           </p>
           <p className="inTit2">상세 주소</p>
-          <p className="adrDetail"><input type="text" readOnly placeholder="상세주소" value={arrivalAddr.st2} className="" /></p>
+          <p className="adrDetail"><input type="text" readOnly placeholder="상세주소" value={arrivalAddr.st2} onChange={handleArrivalSt2Change} /></p>
           {/* <div className="phoneBox">
             <input type="text" placeholder="도착지 연락처" className="" />
             <button className="btn phon">변경</button>

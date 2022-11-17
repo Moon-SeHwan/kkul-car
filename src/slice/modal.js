@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit"
 import { PURGE } from "redux-persist"
 
 const initialState = {
-  d: "",
   header: "",
   isOpen: false,
   onBtnHidden: false,
@@ -16,7 +15,6 @@ const modalSlice = createSlice({
   initialState,
   reducers: {
     SHOW(state, action) {
-      state.d = action.payload.d
       state.header = action.payload.header
       state.isOpen = true
       state.onBtnHidden = action.payload.onBtnHidden

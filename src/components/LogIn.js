@@ -47,7 +47,7 @@ const LogIn = ({ inputRef }) => {
   }
 
   return (
-    <div className="step1">
+    <div className="login">
       {/* <div className="stepBox"><span className="badge">STEP 1</span> 간편로그인</div> */}
       <p className="txt">쉽고 빠른 화물차 의뢰! 지금 꿀차에서 시작하세요.</p>
       {
@@ -61,16 +61,10 @@ const LogIn = ({ inputRef }) => {
         {
           user.ownerUid === 0 ?
           <>
-            <div className="kakao mgr5" onClick={handleKaKaoLogin}><img src="./assets/kakao.png" alt="" />카카오 로그인</div>
-            <div className="naver" onClick={handleNaverLogin}><img src="./assets/naver.png" alt="" />네이버 로그인</div>
+            <div className="kakao mgr5" onClick={handleKaKaoLogin}><img width={21} src="./assets/kakao.png" alt="" />카카오 로그인</div>
+            <div className="naver" onClick={handleNaverLogin}><img width={21} src="./assets/naver.png" alt="" />네이버 로그인</div>
           </>
           :
-          <></>
-        }
-        {
-          user.ownerUid === 0 ? 
-          <></> 
-          : 
           <button className="btn req" onClick={() => handleNextClick()}><i><ReceiptLongIcon /></i>의뢰하기</button>
         }
         <button className="btn req" onClick={() => handleNextClick()}><i><ReceiptLongIcon /></i>의뢰하기</button>

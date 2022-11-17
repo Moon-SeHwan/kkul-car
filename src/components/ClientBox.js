@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 const ClientBox = () => {
   const navigate = useNavigate()
 
+  const [clientClassName, setClientClassName] = useState("clientBox")
+
   const onClickToTrTerms = () => {
     navigate('TrTerms')
   }
@@ -15,8 +17,6 @@ const ClientBox = () => {
   const onClickToPrTerms = () => {
     navigate('PrTerms')
   }
-
-  const [clientClassName, setClientClassName] = useState("clientBox")
 
   useEffect(() => {
     setClientClassName(() => "clientBox on")
@@ -32,7 +32,7 @@ const ClientBox = () => {
   return (
     <div className={clientClassName}>
       <dl className="">
-        <dt>고객 센터 <button className="btn arw-dw" onClick={() => handleClientBoxArrowDown()}></button></dt>
+        <dt>고객 센터 <button className="arw-dw" onClick={() => handleClientBoxArrowDown()}></button></dt>
         <dd>
           <div className="phoneBox">
             <img src={require("src/assets/icon/phone.png")} alt="" />

@@ -58,8 +58,8 @@ const CargoName = ({ inputRef }) => {
   }
 
   return (
-    <div className="step3 pdb5">
-      <div className="stepBox"><span className="badge">STEP 3</span> 화물명 입력</div>
+    <div className="step2 pdb5">
+      <div className="stepBox"><span className="badge">STEP 2</span> 화물명 입력</div>
       <input type="text" value={name} placeholder="화물명" onChange={e => { setName(e.target.value) }}/>
       <div className="inBox">
         <p className="inTit">냉장/냉동여부</p>

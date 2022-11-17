@@ -18,22 +18,18 @@ const RequestItem = ({ inputRef }) => {
   const [request2, setRequest2] = useState([])
 
   const handleChangeRequest1 = (event) => {
-    const checked = event.target.checked
-    const val = event.target.value
-    if (checked) {
-      setRequest1(() => [...request1, val])
+    if (event.target.checked) {
+      setRequest1(() => [...request1, event.target.value])
     } else {
-      setRequest1((prev) => prev.filter(e => e !== val))
+      setRequest1((prev) => prev.filter(e => e !== event.target.value))
     }
   }
 
   const handleChangeRequest2 = (event) => {
-    const checked = event.target.checked
-    const val = event.target.value
-    if (checked) {
-      setRequest2(() => [...request2, val])
+    if (event.target.checked) {
+      setRequest2(() => [...request2, event.target.value])
     } else {
-      setRequest2((prev) => prev.filter(e => e !== val))
+      setRequest2((prev) => prev.filter(e => e !== event.target.value))
     }
   }
 
@@ -54,7 +50,7 @@ const RequestItem = ({ inputRef }) => {
   }
 
   return (
-    <div className="step8 pdb5">
+    <div className="step7 pdb5">
       <div className="stepBox"><span className="badge">STEP 8</span> 요청사항</div>
       <div className="inBox">						
         <p className="inTit">결제방법(다수 선택가능)</p>

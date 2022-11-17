@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector } from 'react-redux';
 
 import { useAppDispatch } from 'src/store';
@@ -8,51 +8,47 @@ import {
   getCommonCodeByType
 } from "src/api/code";
 
-const LoadUnload = ({ inputRef }) => {
+const LoadUnload = ({ inputRef, page }) => {
+  const token = useSelector((state) => state.token)
   const cargo = useSelector((state) => state.cargo)
   const dispatch = useAppDispatch()
 
   const [list, setList] = useState([])
 
   const [load, setLoad] = React.useState({
-    value: "",
-    name: "선택"
+    value: cargo.loadMethod.value || "",
+    name: cargo.loadMethod.name || "선택",
   })
   const [unload, setUnLoad] = React.useState({
-    value: "",
-    name: "선택"
+    value: cargo.unloadMethod.value || "",
+    name: cargo.unloadMethod.name || "선택"
   })
 
-  const loadApi = () => {
-    const codeType = "LDULD";
-
-    const prefix = {
-      cdid: "",
-      codeName: "선택"
+  const loadApi = useCallback(() => {
+    if (token.accessToken !== "") {
+      if (page === 6) {
+        
+        getCommonCodeByType("LDULD")
+        .then(res => {
+          setList(() => {
+            if (res.data) {
+              return [ 
+                {
+                  cdid: "",
+                  codeName: "선택"
+                }, 
+                ...res.data 
+              ]
+            }
+          })
+        })
+      }
     }
-
-    getCommonCodeByType(codeType)
-    .then(res => {
-      setList(() => {
-        if (res.data) return [ prefix, ...res.data ]
-      })
-    })
-    .then(() => {
-      setLoad({
-        value: cargo.loadMethod.value,
-        name: cargo.loadMethod.name
-      })
-  
-      setUnLoad({
-        value: cargo.unloadMethod.value,
-        name: cargo.unloadMethod.name
-      })
-    })
-  }
+  }, [token.accessToken, page])
 
   useEffect(() => {
     loadApi()
-  }, [])
+  }, [loadApi])
 
   const handleLoadChange = (event) => {
     setLoad({
@@ -70,7 +66,7 @@ const LoadUnload = ({ inputRef }) => {
 
   const handleNextClick = () => {
     dispatch(
-      cargoSlice.actions.STEP7({
+      cargoSlice.actions.STEP6({
         loadMethod: { ...load },
         unloadMethod: { ...unload }
       })
@@ -84,8 +80,8 @@ const LoadUnload = ({ inputRef }) => {
   }
 
   return (
-    <div className="step7">
-      <div className="stepBox"><span className="badge">STEP 7</span> 상/하차 방법</div>
+    <div className="step6">
+      <div className="stepBox"><span className="badge">STEP 6</span> 상/하차 방법</div>
       <div className="inBox">
         
         <p className="inTit">상차방법</p>
